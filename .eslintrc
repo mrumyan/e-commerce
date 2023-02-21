@@ -11,7 +11,8 @@
         "prettier/prettier": [
             "error",
             {
-                "endOfLine": "auto"
+                "endOfLine": "auto",
+                "useTabs": false
             }
         ],
         "import/order": [
