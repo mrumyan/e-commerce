@@ -1,11 +1,11 @@
-import Page from "@components/Page";
+import Products from "./pages/Products/components/Products";
 
 import "./App.css";
 
 const App = () => {
   return (
     <div className="app">
-      <Page />
+      <Products />
     </div>
   );
 };

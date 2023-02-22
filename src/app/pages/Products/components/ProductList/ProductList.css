@@ -1,0 +1,35 @@
+.main__product-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-list__total {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.product-list__title {
+    margin: 51px 0 50px;
+    font-size: 44px;
+    line-height: 57px;
+    color: #151411;
+}
+
+.product-list__number {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 21px;
+    color: #518581;
+}
+
+.product-list__content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 29px 30px;
+}
