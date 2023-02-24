@@ -1,0 +1,17 @@
+.related-items__title {
+    margin: 50px 0 30px;
+    text-align: left;
+    font-family: 'Eudoxus Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 42px;
+    letter-spacing: 0.01em;
+    color: #151411;
+}
+
+.related-items__content {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 29px;
+}

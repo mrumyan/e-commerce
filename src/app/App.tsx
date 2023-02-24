@@ -1,3 +1,4 @@
+import ProductDetails from "./pages/ProductDetails/components/ProductDetails";
 import Products from "./pages/Products/components/Products";
 
 import "./App.css";
@@ -5,7 +6,8 @@ import "./App.css";
 const App = () => {
   return (
     <div className="app">
-      <Products />
+      {/* <Products /> */}
+      <ProductDetails />
     </div>
   );
 };

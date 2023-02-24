@@ -1,5 +1,5 @@
 .main__title {
-    margin: 100px 0 20px;
+    margin-bottom: 20px;
     font-size: 64px;
     line-height: 83px;
     color: #151411;
@@ -17,7 +17,6 @@
 /*** RESPONSIVE ***/
 @media screen and (max-width: 500px) {
     .main__title {
-        margin-top: 50px;
         font-size: 26px;
         line-height: 34px;
         letter-spacing: 0.01em;

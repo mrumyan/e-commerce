@@ -4,10 +4,18 @@
     padding-right: 100px;
 }
 
+.main {
+    padding-top: 100px;
+}
+
 /*** RESPONSIVE ***/
 @media screen and (max-width: 800px) {
     .page__wrapper {
         padding-left: 24px;
         padding-right: 24px;
+    }
+
+    .main {
+        padding-top: 50px;
     }
 }
