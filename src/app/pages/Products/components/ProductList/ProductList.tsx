@@ -1,25 +1,24 @@
-import {
-  ProductCard,
-  ProductCardProps,
-} from "@components/ProductCard/ProductCard";
+import { ProductCard } from "@components/ProductCard/ProductCard";
+import { ProductType } from "src/types/api";
 
 import "./ProductList.css";
 
 type ProductListProps = {
-  products: ProductCardProps[];
+  products: ProductType[];
 };
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
   const productList = products.map((product) => (
     <ProductCard
-      id={product.id}
-      images={product.images}
+      key={product.id}
       title={product.title}
-      description={product.description}
+      subtitle={product.description}
+      image={product.images[0]}
+      category={product.category.name}
+      content={`$${product.price}`}
     />
   ));
 
-  console.log("productList", productList);
   return (
     <div className="main__product-list">
       <div className="product-list__total">

@@ -1,31 +1,30 @@
 import "./ProductCard.css";
 
 export type ProductCardProps = {
-  id: number;
-  images: string[]; //image: string;
-  title: string; //title: React.ReactNode;
-  description: string; //subtitle: React.ReactNode;
+  title: React.ReactNode;
+  subtitle: React.ReactNode;
+  image: string;
   category?: string;
   content?: React.ReactNode;
   onClick?: React.MouseEventHandler;
 };
 
 export const ProductCard: React.FC<ProductCardProps> = ({
-  images,
   title,
-  description,
+  subtitle,
+  image,
   category,
   content,
   onClick,
 }) => {
   return (
     <figure className="card" onClick={onClick}>
-      <img className="card__image" src={images[0]} alt={title as string} />
+      <img className="card__image" src={image} alt={title as string} />
       <figcaption className="card__info">
-        <p className="card__category">{category}</p>
-        <p className="card__title">{title}</p>
-        <div className="card__subtitle">{description}</div>
-        <div className="card__content">{content}</div>
+        <p className="card__item card__category">{category}</p>
+        <p className="card__item card__title">{title}</p>
+        <p className="card__item card__subtitle">{subtitle}</p>
+        <p className="card__item card__content">{content}</p>
       </figcaption>
     </figure>
   );

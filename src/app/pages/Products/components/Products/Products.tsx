@@ -1,40 +1,32 @@
 import { useEffect, useState } from "react";
 
 import Page from "@components/Page";
-import { ProductCardProps } from "@components/ProductCard/ProductCard";
 import axios from "axios";
+import { ProductType } from "src/types/api";
 
 import Filter from "../Filter";
-import "./Products.css";
 import ProductList from "../ProductList";
 
-// type ProductType = {
-//   id: number;
-//   title: string;
-//   description: string;
-//   images: string[];
-// };
+import "./Products.css";
 
 const Products = () => {
-  const [products, setProducts] = useState<ProductCardProps[]>([]);
+  const [products, setProducts] = useState<ProductType[]>([]);
+
   const productsUrl: string =
     "https://api.escuelajs.co/api/v1/products/?categoryId=3";
 
-  //    const products: ProductCardProps[] = [];
-  const getProducts = () =>
-    axios
-      .get<ProductCardProps[]>(productsUrl)
-      .then((response) => response.data);
+  const getProducts = (): Promise<ProductType[]> =>
+    axios.get<ProductType[]>(productsUrl).then((response) => response.data);
 
-  const fetchProducts = () => {
-    getProducts().then((response) => {
-      setProducts(response);
-    });
-  };
+  useEffect(() => {
+    const fetchProducts = (): void => {
+      getProducts().then((response) => {
+        setProducts(response);
+      });
+    };
 
-  useEffect(() => fetchProducts(), []);
-
-  console.log("products", products);
+    fetchProducts();
+  }, []);
 
   return (
     <Page>

@@ -27,9 +27,26 @@
 }
 
 .product-list__content {
-    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 29px 30px;
+    gap: 30px 29px;
+}
+
+/*** RESPONSIVE ***/
+@media screen and (min-width: 1800px) {
+    .product-list__content {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .product-list__content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .product-list__content {
+        grid-template-columns: 1fr;
+    }
 }
