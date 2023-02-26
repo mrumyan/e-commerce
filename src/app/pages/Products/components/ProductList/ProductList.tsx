@@ -2,7 +2,7 @@ import { ProductCard } from "@components/ProductCard/ProductCard";
 import { Link } from "react-router-dom";
 import { ProductType } from "src/types/api";
 
-import "./ProductList.css";
+import "./ProductList.scss";
 
 type ProductListProps = {
   products: ProductType[];

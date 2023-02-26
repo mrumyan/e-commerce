@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductDetails from "./pages/ProductDetails/components/ProductDetails";
 import Products from "./pages/Products/components/Products";
 
-import "./App.css";
+import "./App.scss";
 
 const App = () => {
   return (

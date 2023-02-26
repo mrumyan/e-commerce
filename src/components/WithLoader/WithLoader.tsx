@@ -1,6 +1,6 @@
 import { Loader, LoaderSize } from "../Loader/Loader";
 
-import "./WithLoader.css";
+import "./WithLoader.scss";
 
 export type WithLoaderProps = React.PropsWithChildren<{
   loading: boolean;

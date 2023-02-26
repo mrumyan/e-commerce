@@ -7,7 +7,7 @@ import { ProductType } from "src/types/api";
 import Filter from "../Filter";
 import ProductList from "../ProductList";
 
-import "./Products.css";
+import "./Products.scss";
 
 const Products = () => {
   const [products, setProducts] = useState<ProductType[]>([]);

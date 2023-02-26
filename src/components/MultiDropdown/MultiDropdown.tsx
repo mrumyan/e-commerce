@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 
-import "./MultiDropdown.css";
+import "./MultiDropdown.scss";
 
 export type Option = {
   key: string;

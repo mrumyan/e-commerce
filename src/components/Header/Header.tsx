@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import StoreLogo from "./icon.svg";
 
-import "./Header.css";
+import "./Header.scss";
 
 const Header = () => {
   const [isBurgerMenuVisible, setIsBurgerMenuVisible] =
@@ -51,10 +51,10 @@ const Header = () => {
       </nav>
       <div className={personalClasses}>
         <Link className="header__personal-item" to="#">
-          <div className="cart"></div>
+          <div className="personal-item__cart"></div>
         </Link>
         <Link className="header__personal-item" to="#">
-          <div className="user"></div>
+          <div className="personal-item__user"></div>
         </Link>
       </div>
       <div className={burgerMenuClasses} onClick={handleBurgerMenu}>

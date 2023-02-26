@@ -1,4 +1,4 @@
-import "./ProductCard.css";
+import "./ProductCard.scss";
 
 export type ProductCardProps = {
   title: React.ReactNode;

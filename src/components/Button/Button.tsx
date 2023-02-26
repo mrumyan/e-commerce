@@ -2,7 +2,7 @@ import cn from "classnames";
 
 import { WithLoader } from "../WithLoader/WithLoader";
 
-import "./Button.css";
+import "./Button.scss";
 
 export type ButtonProps = React.PropsWithChildren<{
   loading?: boolean;

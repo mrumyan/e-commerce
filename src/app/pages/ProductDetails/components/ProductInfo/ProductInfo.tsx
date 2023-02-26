@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@components/Button/Button";
 import axios from "axios";
 import { ProductType } from "src/types/api";
-import "./ProductInfo.css";
+
+import "./ProductInfo.scss";
 
 type ProductInfoProps = {
   id: string | undefined;
@@ -43,7 +44,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
   };
 
   return (
-    <div className="product">
+    <div className="main__product">
       <div className="product__slider">
         <button
           className="product__prev"

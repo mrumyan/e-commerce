@@ -13,17 +13,17 @@
     font-size: 18px;
     line-height: 23.4px;
     color: #FFFFFF;
-}
 
-.button_disabled,
-.button_loading {
-    background: #D9D9D9;
-}
+    &:not([class*='button_']):hover {
+        opacity: 0.7;
+    }
 
-.button_loading {
-    padding-left: 20px;
-}
+    &_disabled,
+    &_loading {
+        background: #D9D9D9;
+    }
 
-.button:not([class*='button_']):hover {
-    opacity: 0.7;
+    &_loading {
+        padding-left: 20px;
+    }
 }

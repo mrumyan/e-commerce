@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import ProductInfo from "../ProductInfo";
 import RelatedItems from "../RelatedItems";
 
-import "./ProductDetails.css";
+import "./ProductDetails.scss";
 
 const ProductDetails = () => {
   const { id, category } = useParams();

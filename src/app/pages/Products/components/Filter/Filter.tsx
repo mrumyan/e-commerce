@@ -1,6 +1,6 @@
 import { Input } from "@components/Input/Input";
 
-import "./Filter.css";
+import "./Filter.scss";
 
 const Filter = () => {
   return (

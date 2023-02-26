@@ -1,6 +1,6 @@
 import cn from "classnames";
 
-import "./Loader.css";
+import "./Loader.scss";
 
 export enum LoaderSize {
   s = "s",

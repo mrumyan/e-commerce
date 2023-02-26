@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import Header from "@components/Header";
 
-import "./Page.css";
+import "./Page.scss";
 
 export type PageProps = React.PropsWithChildren<{
   children?: ReactNode;
