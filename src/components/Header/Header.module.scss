@@ -4,10 +4,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 44px;
-    padding-bottom: 44px;
+    padding: 44px 0;
     border-bottom: 2px solid #F3F3F3;
     position: relative;
+
+    @media screen and (max-width: $tablet) {
+        padding: 20px 0;
+    }
 
     &__logo {
         cursor: pointer;

@@ -36,6 +36,8 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
             title={products[i].title}
             subtitle={products[i].description}
             image={products[i].images[0]}
+            category={products[i].category.name}
+            content={`$${products[i].price}`}
           />
         );
       }
