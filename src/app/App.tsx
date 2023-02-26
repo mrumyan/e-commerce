@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import styles from "./App.module.scss";
 import ProductDetails from "./pages/ProductDetails/components/ProductDetails";
@@ -13,6 +13,7 @@ const App = () => {
           <Route path="/product">
             <Route path=":category/:id" element={<ProductDetails />} />
           </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -13,19 +13,25 @@ type ProductInfoProps = {
 const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
   const [imageNumber, setImageNumber] = useState<number>(0);
   const [product, setProduct] = useState<ProductType | null>(null);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const imagesNumber = useRef<number>(3);
 
   const productUrl: string = `https://api.escuelajs.co/api/v1/products/${id}`;
 
   const getProductById = (): Promise<ProductType> =>
-    axios.get<ProductType>(productUrl).then((response) => response.data);
+    axios.get<ProductType>(productUrl).then((response) => {
+      setHasError(false);
+      return response.data;
+    });
+
+  const fetchProduct = (): void => {
+    getProductById()
+      .then((response) => setProduct(response))
+      .catch(() => setHasError(true));
+  };
 
   useEffect(() => {
-    const fetchProduct = (): void => {
-      getProductById().then((response) => setProduct(response));
-    };
-
     fetchProduct();
   }, []);
 
@@ -42,6 +48,17 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
   const showNextImage = () => {
     product && setImageNumber((prev) => prev + 1);
   };
+
+  if (hasError) {
+    return (
+      <>
+        <h1>Произошла ошибка, повторите попытку</h1>
+        <Button style={{ width: "30%" }} onClick={fetchProduct}>
+          Попробовать снова
+        </Button>
+      </>
+    );
+  }
 
   return (
     <div className={styles.main__product}>
@@ -69,9 +86,9 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
         <p className={`${styles.product__item} ${styles.product__subtitle}`}>
           {product?.description}
         </p>
-        <p
-          className={`${styles.product__item} ${styles.product__content}`}
-        >{`$${product?.price}`}</p>
+        <p className={`${styles.product__item} ${styles.product__content}`}>
+          {product?.price && `$${product?.price}`}
+        </p>
         <div className={styles.product__buttons}>
           <Button className={styles.product__buy}>Buy Now</Button>
           <Button className={styles.product__cart}>Add to Cart</Button>

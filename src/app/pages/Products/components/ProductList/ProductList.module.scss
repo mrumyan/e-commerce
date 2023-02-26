@@ -20,6 +20,11 @@
         font-size: 44px;
         line-height: 57px;
         color: #151411;
+
+        @media screen and (max-width: $tablet) {
+            font-size: 18px;
+            line-height: 23px;
+        }
     }
 
     &__number {
@@ -27,6 +32,11 @@
         font-size: 16px;
         line-height: 21px;
         color: #518581;
+
+        @media screen and (max-width: $tablet) {
+            font-size: 12px;
+            line-height: 22px;
+        }
     }
 
     &__content {

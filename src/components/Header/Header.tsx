@@ -50,10 +50,10 @@ const Header = () => {
       </nav>
       <div className={personalClasses}>
         <Link className={styles["header__personal-item"]} to="#">
-          <div className={styles["personal-item__cart"]}></div>
+          <div className={styles["header__personal-item__cart"]}></div>
         </Link>
         <Link className={styles["header__personal-item"]} to="#">
-          <div className={styles["personal-item__user"]}></div>
+          <div className={styles["header__personal-item__user"]}></div>
         </Link>
       </div>
       <div className={burgerMenuClasses} onClick={handleBurgerMenu}>

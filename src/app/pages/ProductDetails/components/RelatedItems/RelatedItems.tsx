@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { Button } from "@components/Button/Button";
+import Page from "@components/Page";
 import { ProductCard } from "@components/ProductCard/ProductCard";
 import axios from "axios";
 import { ProductType } from "src/types/api";
@@ -12,17 +14,23 @@ type RelatedItemsProps = {
 
 const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
   const [products, setProducts] = useState<ProductType[] | undefined>();
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const categoryUrl: string = `https://api.escuelajs.co/api/v1/categories/${category}/products`;
 
   const getProductsByCategory = (): Promise<ProductType[]> =>
-    axios.get<ProductType[]>(categoryUrl).then((response) => response.data);
+    axios.get<ProductType[]>(categoryUrl).then((response) => {
+      setHasError(false);
+      return response.data;
+    });
+
+  const fetchProducts = (): void => {
+    getProductsByCategory()
+      .then((response) => setProducts(response))
+      .catch(() => setHasError(true));
+  };
 
   useEffect(() => {
-    const fetchProducts = (): void => {
-      getProductsByCategory().then((response) => setProducts(response));
-    };
-
     fetchProducts();
   }, []);
 
@@ -37,13 +45,24 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
             subtitle={products[i].description}
             image={products[i].images[0]}
             category={products[i].category.name}
-            content={`$${products[i].price}`}
+            content={products[i].price && `$${products[i].price}`}
           />
         );
       }
     }
     return result;
   };
+
+  if (hasError) {
+    return (
+      <>
+        <h1>Произошла ошибка, повторите попытку</h1>
+        <Button style={{ width: "30%" }} onClick={fetchProducts}>
+          Попробовать снова
+        </Button>
+      </>
+    );
+  }
 
   return (
     <div className={styles["main__related-items"]}>
