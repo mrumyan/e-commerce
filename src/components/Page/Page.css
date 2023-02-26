@@ -9,7 +9,7 @@
 }
 
 /*** RESPONSIVE ***/
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     .page__wrapper {
         padding-left: 24px;
         padding-right: 24px;

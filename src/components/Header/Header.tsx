@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import StoreLogo from "./icon.svg";
 
 import "./Header.css";
@@ -10,7 +12,11 @@ const Header = () => {
       </div>
       <nav className="header__navigation">
         <ul className="header__menu">
-          <li className="header__menu-item active">Products</li>
+          <li>
+            <Link className="header__menu-item" to="/">
+              Products
+            </Link>
+          </li>
           <li className="header__menu-item">Categories</li>
           <li className="header__menu-item">About Us</li>
         </ul>

@@ -32,6 +32,10 @@
     gap: 30px 29px;
 }
 
+.product-list__item {
+    text-decoration: none;
+}
+
 /*** RESPONSIVE ***/
 @media screen and (min-width: 1800px) {
     .product-list__content {

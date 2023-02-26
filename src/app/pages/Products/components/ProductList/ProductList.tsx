@@ -1,4 +1,5 @@
 import { ProductCard } from "@components/ProductCard/ProductCard";
+import { Link } from "react-router-dom";
 import { ProductType } from "src/types/api";
 
 import "./ProductList.css";
@@ -9,14 +10,19 @@ type ProductListProps = {
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
   const productList = products.map((product) => (
-    <ProductCard
+    <Link
+      className="product-list__item"
       key={product.id}
-      title={product.title}
-      subtitle={product.description}
-      image={product.images[0]}
-      category={product.category.name}
-      content={`$${product.price}`}
-    />
+      to={`/product/${product.category.id}/${product.id}`}
+    >
+      <ProductCard
+        title={product.title}
+        subtitle={product.description}
+        image={product.images[0]}
+        category={product.category.name}
+        content={`$${product.price}`}
+      />
+    </Link>
   ));
 
   return (

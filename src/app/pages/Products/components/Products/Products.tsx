@@ -20,9 +20,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = (): void => {
-      getProducts().then((response) => {
-        setProducts(response);
-      });
+      getProducts().then((response) => setProducts(response));
     };
 
     fetchProducts();
