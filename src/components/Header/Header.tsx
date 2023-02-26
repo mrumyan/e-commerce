@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+import cn from "classnames";
 import { Link } from "react-router-dom";
 
 import StoreLogo from "./icon.svg";
@@ -5,27 +8,56 @@ import StoreLogo from "./icon.svg";
 import "./Header.css";
 
 const Header = () => {
+  const [isBurgerMenuVisible, setIsBurgerMenuVisible] =
+    useState<boolean>(false);
+
+  const handleBurgerMenu = () => setIsBurgerMenuVisible(!isBurgerMenuVisible);
+
+  const navigationClasses = cn("header__navigation", {
+    active: isBurgerMenuVisible,
+  });
+
+  const personalClasses = cn("header__personal", {
+    active: isBurgerMenuVisible,
+  });
+
+  const burgerMenuClasses = cn("header__burger-menu", {
+    active: isBurgerMenuVisible,
+  });
+
   return (
     <header className="header">
       <div className="header__logo">
         <img src={StoreLogo} alt="Lalasia" />
       </div>
-      <nav className="header__navigation">
-        <ul className="header__menu">
+      <nav className={navigationClasses}>
+        <ul className="header__menu" onClick={handleBurgerMenu}>
           <li>
             <Link className="header__menu-item" to="/">
               Products
             </Link>
           </li>
-          <li className="header__menu-item">Categories</li>
-          <li className="header__menu-item">About Us</li>
+          <li>
+            <Link className="header__menu-item" to="#">
+              Categories
+            </Link>
+          </li>
+          <li>
+            <Link className="header__menu-item" to="#">
+              About Us
+            </Link>
+          </li>
         </ul>
       </nav>
-      <div className="header__personal">
-        <div className="header__personal-item cart"></div>
-        <div className="header__personal-item user"></div>
+      <div className={personalClasses}>
+        <Link className="header__personal-item" to="#">
+          <div className="cart"></div>
+        </Link>
+        <Link className="header__personal-item" to="#">
+          <div className="user"></div>
+        </Link>
       </div>
-      <div className="header__burger-menu">
+      <div className={burgerMenuClasses} onClick={handleBurgerMenu}>
         <span className="header__burger-line"></span>
       </div>
     </header>
