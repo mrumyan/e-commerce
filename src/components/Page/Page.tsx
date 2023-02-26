@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import Header from "@components/Header";
 
-import "./Page.scss";
+import styles from "./Page.module.scss";
 
 export type PageProps = React.PropsWithChildren<{
   children?: ReactNode;
@@ -10,9 +10,9 @@ export type PageProps = React.PropsWithChildren<{
 
 const Page: React.FC<PageProps> = ({ children }) => {
   return (
-    <div className="page__wrapper">
+    <div className={styles.page__wrapper}>
       <Header></Header>
-      <main className="main">{children}</main>
+      <main className={styles.main}>{children}</main>
     </div>
   );
 };

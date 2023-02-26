@@ -1,14 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import styles from "./App.module.scss";
 import ProductDetails from "./pages/ProductDetails/components/ProductDetails";
 import Products from "./pages/Products/components/Products";
-
-import "./App.scss";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className={styles.app}>
         <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/product">

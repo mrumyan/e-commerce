@@ -1,10 +1,9 @@
 import Page from "@components/Page";
 import { useParams } from "react-router-dom";
 
+import styles from "./ProductDetails.module.scss";
 import ProductInfo from "../ProductInfo";
 import RelatedItems from "../RelatedItems";
-
-import "./ProductDetails.scss";
 
 const ProductDetails = () => {
   const { id, category } = useParams();

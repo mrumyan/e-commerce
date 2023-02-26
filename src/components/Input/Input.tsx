@@ -1,6 +1,6 @@
 import cn from "classnames";
 
-import "./Input.scss";
+import styles from "./Input.module.scss";
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -20,9 +20,9 @@ export const Input: React.FC<InputProps> = ({
   ...props
 }) => {
   const classNames = cn(
-    "input",
+    styles.input,
     {
-      input_disabled: disabled,
+      [styles.input_disabled]: disabled,
     },
     className
   );

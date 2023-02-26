@@ -14,7 +14,7 @@
     line-height: 23.4px;
     color: #FFFFFF;
 
-    &:not([class*='button_']):hover {
+    &:not([class*='disabled'][class*='loading']):hover {
         opacity: 0.7;
     }
 

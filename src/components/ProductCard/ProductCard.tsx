@@ -1,4 +1,4 @@
-import "./ProductCard.scss";
+import styles from "./ProductCard.module.scss";
 
 export type ProductCardProps = {
   title: React.ReactNode;
@@ -18,13 +18,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onClick,
 }) => {
   return (
-    <figure className="card" onClick={onClick}>
-      <img className="card__image" src={image} alt={title as string} />
-      <figcaption className="card__info">
-        <p className="card__item card__category">{category}</p>
-        <p className="card__item card__title">{title}</p>
-        <p className="card__item card__subtitle">{subtitle}</p>
-        <p className="card__item card__content">{content}</p>
+    <figure className={styles.card} onClick={onClick}>
+      <img className={styles.card__image} src={image} alt={title as string} />
+      <figcaption className={styles.card__info}>
+        <p className={`${styles.card__item} ${styles.card__category}`}>
+          {category}
+        </p>
+        <p className={`${styles.card__item} ${styles.card__title}`}>{title}</p>
+        <p className={`${styles.card__item} ${styles.card__subtitle}`}>
+          {subtitle}
+        </p>
+        <p className={`${styles.card__item} ${styles.card__content}`}>
+          {content}
+        </p>
       </figcaption>
     </figure>
   );

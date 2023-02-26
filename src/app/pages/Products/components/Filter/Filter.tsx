@@ -1,6 +1,6 @@
 import { Input } from "@components/Input/Input";
 
-import "./Filter.scss";
+import styles from "./Filter.module.scss";
 
 const Filter = () => {
   return (

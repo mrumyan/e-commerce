@@ -4,7 +4,7 @@ import { ProductCard } from "@components/ProductCard/ProductCard";
 import axios from "axios";
 import { ProductType } from "src/types/api";
 
-import "./RelatedItem.scss";
+import styles from "./RelatedItem.module.scss";
 
 type RelatedItemsProps = {
   category: string | undefined;
@@ -44,9 +44,9 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
   };
 
   return (
-    <div className="main__related-items">
-      <p className="related-items__title">Related Items</p>
-      <div className="related-items__content">
+    <div className={styles["main__related-items"]}>
+      <p className={styles["related-items__title"]}>Related Items</p>
+      <div className={styles["related-items__content"]}>
         {products && createrRelatedItems()}
       </div>
     </div>

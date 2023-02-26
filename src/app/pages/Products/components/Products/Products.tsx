@@ -4,10 +4,9 @@ import Page from "@components/Page";
 import axios from "axios";
 import { ProductType } from "src/types/api";
 
+import styles from "./Products.module.scss";
 import Filter from "../Filter";
 import ProductList from "../ProductList";
-
-import "./Products.scss";
 
 const Products = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -28,8 +27,8 @@ const Products = () => {
 
   return (
     <Page>
-      <h1 className="main__title">Products</h1>
-      <p className="main__subtitle">
+      <h1 className={styles.main__title}>Products</h1>
+      <p className={styles.main__subtitle}>
         We display products based on the latest products we have, if you want to
         see our old products please enter the name of the item
       </p>

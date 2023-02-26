@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 
-import "./MultiDropdown.scss";
+import styles from "./MultiDropdown.module.scss";
 
 export type Option = {
   key: string;
@@ -53,16 +53,16 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
   ));
 
   return (
-    <div className="multi-dropdown">
+    <div className={styles["multi-dropdown"]}>
       <button
-        className="multi-dropdown__title"
+        className={styles["multi-dropdown__title"]}
         onClick={onDropdownClick}
         disabled={disabled}
       >
         {pluralizeOptions(value)}
       </button>
       <ul
-        className={`multi-dropdown__content ${
+        className={`${styles["multi-dropdown__content"]} ${
           isDropdownShown() ? "clicked" : ""
         }`}
       >

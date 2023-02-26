@@ -1,6 +1,6 @@
 import cn from "classnames";
 
-import "./Checkbox.scss";
+import styles from "./Checkbox.module.scss";
 
 export type CheckBoxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -14,11 +14,11 @@ export type CheckBoxProps = Omit<
 
 export const CheckBox: React.FC<CheckBoxProps> = ({
   checked,
-  disabled,
+  disabled = false,
   onChange,
   ...props
 }) => {
-  const classNames = cn("checkbox");
+  const classNames = cn(styles.checkbox);
 
   return (
     <input

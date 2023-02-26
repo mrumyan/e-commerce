@@ -4,7 +4,7 @@ import { Button } from "@components/Button/Button";
 import axios from "axios";
 import { ProductType } from "src/types/api";
 
-import "./ProductInfo.scss";
+import styles from "./ProductInfo.module.scss";
 
 type ProductInfoProps = {
   id: string | undefined;
@@ -44,33 +44,37 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
   };
 
   return (
-    <div className="main__product">
-      <div className="product__slider">
+    <div className={styles.main__product}>
+      <div className={styles.product__slider}>
         <button
-          className="product__prev"
+          className={styles.product__prev}
           disabled={imageNumber === 0}
           onClick={showPrevImage}
         ></button>
         <img
-          className="product__image"
+          className={styles.product__image}
           src={product?.images[imageNumber]}
           alt={product?.title}
         />
         <button
-          className="product__next"
+          className={styles.product__next}
           disabled={imageNumber === imagesNumber.current - 1}
           onClick={showNextImage}
         ></button>
       </div>
-      <div className="product__info">
-        <p className="product__item product__title">{product?.title || ""}</p>
-        <p className="product__item product__subtitle">
+      <div className={styles.product__info}>
+        <p className={`${styles.product__item} ${styles.product__title}`}>
+          {product?.title || ""}
+        </p>
+        <p className={`${styles.product__item} ${styles.product__subtitle}`}>
           {product?.description}
         </p>
-        <p className="product__item product__content">{`$${product?.price}`}</p>
-        <div className="product__buttons">
-          <Button className="product__buy">Buy Now</Button>
-          <Button className="product__cart">Add to Cart</Button>
+        <p
+          className={`${styles.product__item} ${styles.product__content}`}
+        >{`$${product?.price}`}</p>
+        <div className={styles.product__buttons}>
+          <Button className={styles.product__buy}>Buy Now</Button>
+          <Button className={styles.product__cart}>Add to Cart</Button>
         </div>
       </div>
     </div>

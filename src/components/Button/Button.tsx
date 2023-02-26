@@ -1,8 +1,7 @@
 import cn from "classnames";
 
+import styles from "./Button.module.scss";
 import { WithLoader } from "../WithLoader/WithLoader";
-
-import "./Button.scss";
 
 export type ButtonProps = React.PropsWithChildren<{
   loading?: boolean;
@@ -13,18 +12,18 @@ export type ButtonProps = React.PropsWithChildren<{
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button: React.FC<ButtonProps> = ({
-  loading,
-  disabled,
+  loading = false,
+  disabled = false,
   className,
   handleClick,
   children,
   ...props
 }) => {
   const classNames = cn(
-    "button",
+    styles.button,
     {
-      button_disabled: disabled || loading,
-      button_loading: loading,
+      [styles.button_disabled]: disabled || loading,
+      [styles.button_loading]: loading,
     },
     className
   );

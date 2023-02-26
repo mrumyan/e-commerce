@@ -3,9 +3,8 @@ import { useState } from "react";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 
+import styles from "./Header.module.scss";
 import StoreLogo from "./icon.svg";
-
-import "./Header.scss";
 
 const Header = () => {
   const [isBurgerMenuVisible, setIsBurgerMenuVisible] =
@@ -13,52 +12,52 @@ const Header = () => {
 
   const handleBurgerMenu = () => setIsBurgerMenuVisible(!isBurgerMenuVisible);
 
-  const navigationClasses = cn("header__navigation", {
-    active: isBurgerMenuVisible,
+  const navigationClasses = cn(styles.header__navigation, {
+    [styles.active]: isBurgerMenuVisible,
   });
 
-  const personalClasses = cn("header__personal", {
-    active: isBurgerMenuVisible,
+  const personalClasses = cn(styles.header__personal, {
+    [styles.active]: isBurgerMenuVisible,
   });
 
-  const burgerMenuClasses = cn("header__burger-menu", {
-    active: isBurgerMenuVisible,
+  const burgerMenuClasses = cn(styles["header__burger-menu"], {
+    [styles.active]: isBurgerMenuVisible,
   });
 
   return (
-    <header className="header">
-      <div className="header__logo">
+    <header className={styles.header}>
+      <div className={styles.header__logo}>
         <img src={StoreLogo} alt="Lalasia" />
       </div>
       <nav className={navigationClasses}>
-        <ul className="header__menu" onClick={handleBurgerMenu}>
+        <ul className={styles.header__menu} onClick={handleBurgerMenu}>
           <li>
-            <Link className="header__menu-item" to="/">
+            <Link className={styles["header__menu-item"]} to="/">
               Products
             </Link>
           </li>
           <li>
-            <Link className="header__menu-item" to="#">
+            <Link className={styles["header__menu-item"]} to="#">
               Categories
             </Link>
           </li>
           <li>
-            <Link className="header__menu-item" to="#">
+            <Link className={styles["header__menu-item"]} to="#">
               About Us
             </Link>
           </li>
         </ul>
       </nav>
       <div className={personalClasses}>
-        <Link className="header__personal-item" to="#">
-          <div className="personal-item__cart"></div>
+        <Link className={styles["header__personal-item"]} to="#">
+          <div className={styles["personal-item__cart"]}></div>
         </Link>
-        <Link className="header__personal-item" to="#">
-          <div className="personal-item__user"></div>
+        <Link className={styles["header__personal-item"]} to="#">
+          <div className={styles["personal-item__user"]}></div>
         </Link>
       </div>
       <div className={burgerMenuClasses} onClick={handleBurgerMenu}>
-        <span className="header__burger-line"></span>
+        <span className={styles["header__burger-line"]}></span>
       </div>
     </header>
   );
