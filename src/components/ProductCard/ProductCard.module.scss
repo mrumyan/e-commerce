@@ -1,7 +1,10 @@
+@import "@styles/variables.scss";
+
 .card {
     display: flex;
     flex-direction: column;
     row-gap: 26px;
+    min-height: 544px;
 
     &:hover {
         cursor: pointer;
@@ -12,6 +15,10 @@
         width: 100%;
         height: 360px;
         object-fit: cover;
+
+        @media screen and (max-width: $tablet) {
+            height: 130px;
+        }
     }
 
     &__info {
@@ -21,8 +28,6 @@
     }
 
     &__item {
-        font-family: 'Eudoxus Sans', sans-serif;
-        font-style: normal;
         font-weight: 700;
         color: #151411;
     }

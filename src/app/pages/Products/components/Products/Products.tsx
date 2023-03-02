@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Button } from "@components/Button/Button";
+import Button from "@components/Button";
 import Page from "@components/Page";
 import axios from "axios";
 import { ProductType } from "src/types/api";
