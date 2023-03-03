@@ -21,8 +21,8 @@
         width: 64px;
         height: 64px;
         border-radius: 40px;
-        border-color: #000000;
-        background: #000000 url(./arrow-right.svg) center center no-repeat;
+        border-color: $black-color;
+        background: $black-color url(./arrow-right.svg) center center no-repeat;
         box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.2);
 
         @media screen and (max-width: $tablet) {

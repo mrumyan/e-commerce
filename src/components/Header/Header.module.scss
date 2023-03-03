@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 44px 0;
-    border-bottom: 2px solid #F3F3F3;
+    border-bottom: 2px solid $border-color;
     position: relative;
 
     @media screen and (max-width: $tablet) {
@@ -24,7 +24,7 @@
             top: 0;
             left: 0;
             padding-top: 55px;
-            background: #FFFFFF;
+            background: $white-color;
             transform: translateX(-100%);
             transition: transform 0.5s;
 
@@ -55,10 +55,10 @@
         font-weight: 500;
         font-size: 18px;
         line-height: 32px;
-        color: #151411;
+        color: $main-color;
 
         &:hover {
-            color: #518581;
+            color: $highlight-color;
 
             &::after {
                 content: "";
@@ -67,7 +67,7 @@
                 position: absolute;
                 top: 77px;
                 left: 0px;
-                border-bottom: 3px solid #518581;
+                border-bottom: 3px solid $highlight-color;
             }
         }
 
@@ -115,11 +115,11 @@
         }
 
         &__cart {
-            background: #FFFFFF url(./cart.svg) center center no-repeat;
+            background: $white-color url(./cart.svg) center center no-repeat;
         }
 
         &__user {
-            background: #FFFFFF url(./user.svg) center center no-repeat;
+            background: $white-color url(./user.svg) center center no-repeat;
         }
 
         &:hover {
@@ -165,7 +165,7 @@
         width: 22.5px;
         height: 2px;
         border-radius: 10px;
-        background-color: #151411;
+        background-color: $main-color;
 
         &::before,
         &::after {
@@ -176,7 +176,7 @@
             width: 100%;
             height: 2px;
             border-radius: 2px;
-            background-color: #151411;
+            background-color: $main-color;
         }
 
         &::before {

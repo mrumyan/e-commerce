@@ -29,13 +29,13 @@
 
     &__item {
         font-weight: 700;
-        color: #151411;
+        color: $main-color;
     }
 
     &__category {
         font-size: 18px;
         line-height: 23px;
-        color: #AFADB5;
+        color: $minor-color;
     }
 
     &__title {
@@ -54,7 +54,7 @@
         font-weight: 500;
         font-size: 18px;
         line-height: 32px;
-        color: #AFADB5;
+        color: $minor-color;
     }
 
     &__content {

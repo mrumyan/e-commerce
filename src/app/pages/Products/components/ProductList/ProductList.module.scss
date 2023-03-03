@@ -19,7 +19,7 @@
         margin: 51px 0 50px;
         font-size: 44px;
         line-height: 57px;
-        color: #151411;
+        color: $main-color;
 
         @media screen and (max-width: $tablet) {
             font-size: 18px;
@@ -31,7 +31,7 @@
         font-weight: 700;
         font-size: 16px;
         line-height: 21px;
-        color: #518581;
+        color: $highlight-color;
 
         @media screen and (max-width: $tablet) {
             font-size: 12px;
