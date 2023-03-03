@@ -32,7 +32,7 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
   useEffect(fetchRelatedItems, [fetchRelatedItems]);
 
   if (hasError) {
-    return <CustomError onClick={() => fetchRelatedItems()} />;
+    return <CustomError onClick={fetchRelatedItems} />;
   } else {
     return (
       <div className={styles["main__related-items"]}>

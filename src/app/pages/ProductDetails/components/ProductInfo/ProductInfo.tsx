@@ -31,7 +31,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
   useEffect(fetchProductInfo, [fetchProductInfo]);
 
   if (hasError) {
-    return <CustomError onClick={() => fetchProductInfo()} />;
+    return <CustomError onClick={fetchProductInfo} />;
   } else if (product) {
     return (
       <div className={styles.main__product}>
