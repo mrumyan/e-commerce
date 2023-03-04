@@ -1,47 +1,43 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import CustomError from "@components/Error";
+import { Input } from "@components/Input/Input";
 import Page from "@components/Page";
-import axios from "axios";
-import { ProductType } from "src/types/api";
+import { listProductsStore } from "@store/index";
+import { observer } from "mobx-react-lite";
 
 import styles from "./Products.module.scss";
 import Filter from "../Filter";
 import ProductList from "../ProductList";
 
 const Products = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
-  const [hasError, setHasError] = useState<boolean>(false);
+  const [value, setValue] = React.useState("");
 
-  const productsUrl: string = "https://api.escuelajs.co/api/v1/products";
+  const handleChangeValue = React.useCallback(
+    (value: string) => setValue(value),
+    []
+  );
 
-  const fetchProducts = useCallback(() => {
-    axios
-      .get<ProductType[]>(productsUrl)
-      .then((response) => {
-        setHasError(false);
-        setProducts(response.data);
-      })
-      .catch(() => setHasError(true));
-  }, [productsUrl]);
+  const getProducts = useCallback(listProductsStore.getProducts, []);
 
-  useEffect(fetchProducts, [fetchProducts]);
+  useEffect(getProducts, [listProductsStore]);
 
-  if (hasError) {
-    return <CustomError onClick={fetchProducts} />;
-  } else {
-    return (
-      <Page>
-        <h1 className={styles.main__title}>Products</h1>
-        <p className={styles.main__subtitle}>
-          We display products based on the latest products we have, if you want
-          to see our old products please enter the name of the item
-        </p>
-        <Filter />
-        <ProductList products={products} />
-      </Page>
-    );
-  }
+  return (
+    <Page>
+      <h1 className={styles.main__title}>Products</h1>
+      <p className={styles.main__subtitle}>
+        We display products based on the latest products we have, if you want to
+        see our old products please enter the name of the item
+      </p>
+      {/* <Filter /> */}
+      <Input value={value} onChange={handleChangeValue} />
+      {listProductsStore.hasError ? (
+        <CustomError onClick={getProducts} />
+      ) : (
+        <ProductList list={listProductsStore.list} />
+      )}
+    </Page>
+  );
 };
 
-export default Products;
+export default observer(Products);

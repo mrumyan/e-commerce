@@ -1,25 +1,21 @@
+import { ProductTypeModel } from "@store/models/product";
+
 import styles from "./ProductCard.module.scss";
 
 export type ProductCardProps = {
-  title: React.ReactNode;
-  subtitle: React.ReactNode;
-  image: string;
-  category?: string;
-  content?: React.ReactNode;
-  onClick?: React.MouseEventHandler;
+  product: ProductTypeModel;
 };
 
-export const ProductCard: React.FC<ProductCardProps> = ({
-  title,
-  subtitle,
-  image,
-  category,
-  content,
-  onClick,
-}) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { title, subtitle, images, category, content, onClick } = product;
+
   return (
     <figure className={styles.card} onClick={onClick}>
-      <img className={styles.card__image} src={image} alt={title as string} />
+      <img
+        className={styles.card__image}
+        src={images[0]}
+        alt={title as string}
+      />
       <figcaption className={styles.card__info}>
         <p className={`${styles.card__item} ${styles.card__category}`}>
           {category}

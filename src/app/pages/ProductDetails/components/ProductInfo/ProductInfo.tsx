@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
-import Button from "@components/Button";
 import CustomError from "@components/Error";
-import axios from "axios";
-import { ProductType } from "src/types/api";
+import { productStore } from "@store/index";
+import { observer } from "mobx-react-lite";
 
 import styles from "./ProductInfo.module.scss";
+import ProductDescription from "../ProductDescription";
 import ProductSlider from "../ProductSlider";
 
 type ProductInfoProps = {
@@ -13,44 +13,23 @@ type ProductInfoProps = {
 };
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
-  const [product, setProduct] = useState<ProductType | null>(null);
-  const [hasError, setHasError] = useState(false);
+  const getProduct = useCallback(() => productStore.getProduct(id), []);
 
-  const productUrl: string = `https://api.escuelajs.co/api/v1/products/${id}`;
+  useEffect(getProduct, [productStore]);
 
-  const fetchProductInfo = useCallback(() => {
-    axios
-      .get<ProductType>(productUrl)
-      .then((response) => {
-        setHasError(false);
-        setProduct(response.data);
-      })
-      .catch(() => setHasError(true));
-  }, [productUrl]);
+  if (productStore.hasError) {
+    return <CustomError onClick={getProduct} />;
+  } else if (productStore.product) {
+    const { title, subtitle, images, content } = productStore.product;
 
-  useEffect(fetchProductInfo, [fetchProductInfo]);
-
-  if (hasError) {
-    return <CustomError onClick={fetchProductInfo} />;
-  } else if (product) {
     return (
       <div className={styles.main__product}>
-        <ProductSlider images={product.images} alt={product.title} />
-        <div className={styles.product__info}>
-          <p className={`${styles.product__item} ${styles.product__title}`}>
-            {product.title || ""}
-          </p>
-          <p className={`${styles.product__item} ${styles.product__subtitle}`}>
-            {product.description}
-          </p>
-          <p className={`${styles.product__item} ${styles.product__content}`}>
-            {product.price && `$${product.price}`}
-          </p>
-          <div className={styles.product__buttons}>
-            <Button className={styles.product__buy}>Buy Now</Button>
-            <Button className={styles.product__cart}>Add to Cart</Button>
-          </div>
-        </div>
+        <ProductSlider images={images} alt={title} />
+        <ProductDescription
+          title={title}
+          subtitle={subtitle}
+          content={content}
+        />
       </div>
     );
   } else {
@@ -58,4 +37,4 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
   }
 };
 
-export default ProductInfo;
+export default observer(ProductInfo);
