@@ -1,9 +1,15 @@
 import {
+  CollectionModel,
+  getInitialCollectionModel,
+  linearizeCollection,
+  normalizeCollection,
+} from "@store/models/collection";
+import {
   normalizeProductType,
   ProductTypeApi,
   ProductTypeModel,
 } from "@store/models/product";
-import { getCategoryUrl } from "@utils/ApiRequests";
+import { getCategoryUrl, SHOWN_ITEM_NUMBERS } from "@utils/ApiRequests";
 import { ILocalStore } from "@utils/ILocalStrore";
 import axios from "axios";
 import {
@@ -18,17 +24,16 @@ export interface ICategoryStore {
   getProductsByCategory: (categoryId?: string) => void;
 }
 
-//const categoryId = 1; //remove
-//let BASE_API_URL = `https://api.escuelajs.co/api/v1/categories/${categoryId}/products`;
 type PrivateFields = "_products" | "_hasError";
-const SHOWN_ITEM_NUMBERS = 4;
+
 class CategoryStore implements ICategoryStore, ILocalStore {
-  private _products: ProductTypeModel[] = [];
+  private _products: CollectionModel<number, ProductTypeModel> =
+    getInitialCollectionModel();
   private _hasError: boolean = false;
 
   constructor() {
     makeObservable<CategoryStore, PrivateFields>(this, {
-      _products: observable,
+      _products: observable.ref,
       _hasError: observable,
       products: computed,
       hasError: computed,
@@ -37,7 +42,7 @@ class CategoryStore implements ICategoryStore, ILocalStore {
   }
 
   get products(): ProductTypeModel[] {
-    return this._products;
+    return linearizeCollection(this._products);
   }
 
   get hasError(): boolean {
@@ -45,7 +50,7 @@ class CategoryStore implements ICategoryStore, ILocalStore {
   }
 
   getProductsByCategory(categoryId?: string): void {
-    this._products = [];
+    this._products = getInitialCollectionModel();
     const requestUrl: string = getCategoryUrl(categoryId);
 
     axios
@@ -53,19 +58,20 @@ class CategoryStore implements ICategoryStore, ILocalStore {
       .then((response) => {
         runInAction(() => {
           try {
-            this._products = response.data
+            const shownList = response.data
               .slice(0, SHOWN_ITEM_NUMBERS)
               .map(normalizeProductType);
+            this._products = normalizeCollection(shownList, (item) => item.id);
             this._hasError = false;
           } catch {
             this._hasError = true;
-            this._products = [];
+            this._products = getInitialCollectionModel();
           }
         });
       })
       .catch(() => {
         this._hasError = true;
-        this._products = [];
+        this._products = getInitialCollectionModel();
       });
   }
 

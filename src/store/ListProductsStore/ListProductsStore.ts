@@ -1,4 +1,10 @@
 import {
+  CollectionModel,
+  getInitialCollectionModel,
+  linearizeCollection,
+  normalizeCollection,
+} from "@store/models/collection";
+import {
   normalizeProductType,
   ProductTypeApi,
   ProductTypeModel,
@@ -19,8 +25,10 @@ export interface IListProductsStore {
 }
 
 type PrivateFields = "_list" | "_hasError";
+
 class ListProductsStore implements IListProductsStore, ILocalStore {
-  private _list: ProductTypeModel[] = [];
+  private _list: CollectionModel<number, ProductTypeModel> =
+    getInitialCollectionModel();
   private _hasError: boolean = false;
 
   constructor() {
@@ -34,7 +42,7 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
   }
 
   get list(): ProductTypeModel[] {
-    return this._list;
+    return linearizeCollection(this._list);
   }
 
   get hasError(): boolean {
@@ -42,24 +50,26 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
   }
 
   getProducts(): void {
+    this._list = getInitialCollectionModel();
     const requestUrl: string = getProductsListUrl();
-    this._list = [];
+
     axios
       .get<ProductTypeApi[]>(requestUrl)
       .then((response) => {
         runInAction(() => {
           try {
-            this._list = response.data.map(normalizeProductType);
+            const list = response.data.map(normalizeProductType);
+            this._list = normalizeCollection(list, (item) => item.id);
             this._hasError = false;
           } catch {
             this._hasError = true;
-            this._list = [];
+            this._list = getInitialCollectionModel();
           }
         });
       })
       .catch(() => {
         this._hasError = true;
-        this._list = [];
+        this._list = getInitialCollectionModel();
       });
   }
 

@@ -18,9 +18,8 @@ export interface IProductStore {
   getProduct: (productId?: string) => void;
 }
 
-//const id = 40; //remove
-//const BASE_API_URL = `https://api.escuelajs.co/api/v1/products/${id}`;
 type PrivateFields = "_product" | "_hasError";
+
 class ProductStore implements IProductStore, ILocalStore {
   private _product: ProductTypeModel | null = null;
   private _hasError: boolean = false;
