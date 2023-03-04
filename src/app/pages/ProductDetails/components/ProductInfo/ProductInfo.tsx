@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from "react";
 
 import CustomError from "@components/Error";
-import { productStore } from "@store/index";
+import ProductStore from "@store/ProductStore";
+import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 
 import styles from "./ProductInfo.module.scss";
@@ -13,6 +14,8 @@ type ProductInfoProps = {
 };
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
+  const productStore = useLocalStore(() => new ProductStore());
+
   const getProduct = useCallback(() => productStore.getProduct(id), []);
 
   useEffect(getProduct, [productStore]);

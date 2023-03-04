@@ -4,7 +4,7 @@ import {
   ProductTypeModel,
 } from "@store/models/product";
 import { getProductUrl } from "@utils/ApiRequests";
-import { ILocalStore } from "@utils/ILocalStrore";
+import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
   action,

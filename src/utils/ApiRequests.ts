@@ -9,6 +9,12 @@ export const getProductsListUrl = () => {
   return `${BASE_URL}/products`;
 };
 
+// export const getProductsByTitleUrl = () => {
+//   return `${BASE_URL}/products`;
+// };
+
+// https://api.escuelajs.co/api/v1/products/?title=Generic
+
 export const getProductUrl = (productId?: string) => {
   return `${BASE_URL}/products/${productId ?? DEFAULT_PRODUCT_ID}`;
 };

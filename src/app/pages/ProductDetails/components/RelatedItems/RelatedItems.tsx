@@ -2,7 +2,8 @@ import { useCallback, useEffect } from "react";
 
 import CustomError from "@components/Error";
 import { ProductCard } from "@components/ProductCard/ProductCard";
-import { categoryStore } from "@store/index";
+import CategoryStore from "@store/CategoryStore";
+import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 
 import styles from "./RelatedItem.module.scss";
@@ -12,6 +13,8 @@ type RelatedItemsProps = {
 };
 
 const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
+  const categoryStore = useLocalStore(() => new CategoryStore());
+
   const getRelatedProducts = useCallback(
     () => categoryStore.getProductsByCategory(category),
     []

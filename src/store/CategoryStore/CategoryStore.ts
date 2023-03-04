@@ -10,7 +10,7 @@ import {
   ProductTypeModel,
 } from "@store/models/product";
 import { getCategoryUrl, SHOWN_ITEM_NUMBERS } from "@utils/ApiRequests";
-import { ILocalStore } from "@utils/ILocalStrore";
+import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
   action,

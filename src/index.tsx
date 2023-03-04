@@ -3,6 +3,7 @@ import React from "react";
 import "./configs/configureMobX.ts";
 
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
 import "./index.scss";
 import "./styles/styles.scss";
@@ -15,6 +16,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
