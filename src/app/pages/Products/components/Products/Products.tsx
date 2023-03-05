@@ -4,7 +4,7 @@ import CustomError from "@components/Error";
 import { Input } from "@components/Input/Input";
 import Page from "@components/Page";
 import ListProductsStore from "@store/ListProductsStore";
-import { useQueryParamsStoreInit } from "@store/RootStore/hooks/useQueryParamsStoreInit";
+import { DEFAULT_LIMIT } from "@utils/ApiRequests";
 import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
@@ -16,22 +16,22 @@ const Products = () => {
   const listProductsStore = useLocalStore(() => new ListProductsStore());
 
   const getProducts = useCallback(listProductsStore.getProducts, [
-    listProductsStore,
+    listProductsStore.list,
   ]);
 
-  useEffect(getProducts, [listProductsStore]);
+  useEffect(getProducts, [listProductsStore.list]);
 
   const onChange = React.useCallback(
     (query: string) => listProductsStore.setQuery(query),
-    [listProductsStore]
+    [listProductsStore.query]
   );
 
   let navigate = useNavigate();
   useEffect(() => {
-    navigate(`?title=${listProductsStore.query}`);
-  }, [listProductsStore.query]);
-
-  useQueryParamsStoreInit();
+    navigate(
+      `?title=${listProductsStore.query}&offset=${listProductsStore.offset}&limit=${DEFAULT_LIMIT}`
+    );
+  }, [listProductsStore.query, listProductsStore.offset]);
 
   return (
     <Page>
@@ -48,7 +48,12 @@ const Products = () => {
       {listProductsStore.hasError ? (
         <CustomError onClick={getProducts} />
       ) : (
-        <ProductList list={listProductsStore.list} />
+        <ProductList
+          list={listProductsStore.list}
+          length={listProductsStore.list.length}
+          nextFn={listProductsStore.incrementOffset}
+          hasMore={listProductsStore.hasMore}
+        />
       )}
     </Page>
   );

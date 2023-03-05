@@ -14,7 +14,7 @@ export const WithLoader: React.FC<WithLoaderProps> = ({
       {loading && (
         <Loader
           loading={loading}
-          size={LoaderSize.s}
+          size={LoaderSize.l}
           className={styles.white}
         ></Loader>
       )}

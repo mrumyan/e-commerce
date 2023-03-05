@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    height: 100vh;
 }
 
 .product-list {
@@ -37,6 +38,19 @@
             font-size: 12px;
             line-height: 22px;
         }
+    }
+
+    &__content-with-scroll {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        height: 100%;
+        overflow: auto;
+    }
+
+    &__scroll {
+        margin: 20px auto 20px;
     }
 
     &__content {

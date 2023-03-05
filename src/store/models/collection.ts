@@ -24,3 +24,18 @@ export const normalizeCollection = <K extends string | number, T>(
   });
   return collection;
 };
+
+export const addToCollection = <K extends string | number, T>(
+  items: T[],
+  getKeyForElement: (element: T) => K,
+  previousCollection: CollectionModel<K, T>
+): CollectionModel<K, T> => {
+  items.forEach((item) => {
+    const id = getKeyForElement(item);
+    if (!previousCollection.order.includes(id)) {
+      previousCollection.order.push(id);
+      previousCollection.entities[id] = item;
+    }
+  });
+  return previousCollection;
+};
