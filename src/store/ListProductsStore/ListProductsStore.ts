@@ -1,7 +1,8 @@
 import {
-  addToCollection,
   CollectionModel,
   getInitialCollectionModel,
+  getLength,
+  joinCollections,
   linearizeCollection,
   normalizeCollection,
 } from "@store/models/collection";
@@ -26,17 +27,14 @@ import {
 } from "mobx";
 
 export interface IListProductsStore {
-  getProducts: (requestUrl: string) => void;
+  getProducts: (hasNewQuery: boolean) => void;
 }
 
 type PrivateFields = "_list" | "_query" | "_hasMore" | "_hasError";
 
 class ListProductsStore implements IListProductsStore, ILocalStore {
-  // private _list: CollectionModel<number, ProductTypeModel> =
-  //   getInitialCollectionModel();
-  private _list: ProductTypeModel[] = [];
-  private _query: QueryParamsType =
-    rootStore.queryParamsStore.getParam("title") ?? "";
+  private _list: CollectionModel<number, ProductTypeModel>;
+  private _query: QueryParamsType;
   private _hasMore: boolean = true;
   private _hasError: boolean = false;
 
@@ -51,19 +49,21 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
       hasError: computed,
       getProducts: action.bound,
     });
+
+    this._list = getInitialCollectionModel();
+    this._query = rootStore.queryParamsStore.getParam("title") ?? "";
   }
 
   private readonly _qpReaction: IReactionDisposer = reaction(
     () => rootStore.queryParamsStore.getParam("title"),
     (search) => {
       this._query = search;
-      this._list = []; //this._list = getInitialCollectionModel();
-      this.getProducts();
+      this.getProducts(true);
     }
   );
 
   get list(): ProductTypeModel[] {
-    return this._list; //return linearizeCollection(this._list);
+    return linearizeCollection(this._list);
   }
 
   get query(): QueryParamsType {
@@ -82,10 +82,9 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
     this._query = query;
   }
 
-  getProducts(): void {
-    //this._list = getInitialCollectionModel();
+  getProducts(hasNewQuery = false): void {
     const requestUrl = `${getProductsListUrl()}?title=${this._query}&offset=${
-      this._list.length
+      hasNewQuery ? 0 : getLength(this._list)
     }&limit=${DEFAULT_LIMIT}`;
 
     axios
@@ -93,26 +92,31 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
       .then((response) => {
         runInAction(() => {
           try {
+            this._list = hasNewQuery ? getInitialCollectionModel() : this._list;
+
             const list = response.data.map(normalizeProductType);
-            this._list = [...this._list, ...list]; //this._list = addToCollection(list, (item) => item.id, this._list);
-            this._hasMore = !!list.length;
+            this._list = joinCollections(
+              this._list,
+              normalizeCollection(list, (item) => item.id)
+            );
+            this._hasMore = !(list.length < DEFAULT_LIMIT);
             this._hasError = false;
           } catch {
-            this._list = []; //this._list = getInitialCollectionModel();
+            this._list = getInitialCollectionModel();
             this._hasError = true;
             this._hasMore = false;
           }
         });
       })
       .catch(() => {
-        this._list = []; //this._list = getInitialCollectionModel();
+        this._list = getInitialCollectionModel();
         this._hasError = true;
         this._hasMore = false;
       });
   }
 
   destroy(): void {
-    //this._qpReaction();
+    this._qpReaction();
   }
 }
 

@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import CustomError from "@components/Error";
 import { Input } from "@components/Input/Input";
 import Page from "@components/Page";
 import { ListProductsContext } from "@context/ListProductsContext";
 import ListProductsStore from "@store/ListProductsStore";
-import { useQueryParamsStoreInit } from "@store/RootStore/hooks/useQueryParamsStoreInit";
 import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Products.module.scss";
 import ProductList from "../ProductList";
@@ -16,15 +15,11 @@ import ProductList from "../ProductList";
 const Products = () => {
   const listProductsStore = useLocalStore(() => new ListProductsStore());
 
-  useQueryParamsStoreInit();
-
   let navigate = useNavigate();
 
-  const getProducts = useCallback(listProductsStore.getProducts, [
-    listProductsStore.list,
-  ]);
+  const getProducts = useCallback(listProductsStore.getProducts, []);
 
-  useEffect(getProducts, [listProductsStore.query]);
+  useEffect(getProducts, []);
 
   const onChange = (query: string) => {
     listProductsStore.setQuery(query);

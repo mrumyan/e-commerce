@@ -9,33 +9,44 @@ export const getInitialCollectionModel = (): CollectionModel<any, any> => ({
 });
 
 export const linearizeCollection = <K extends string | number, T>(
-  elements: CollectionModel<K, T>
-): T[] => elements.order.map((el) => elements.entities[el]);
+  collection: CollectionModel<K, T>
+): T[] => collection.order.map((el) => collection.entities[el]);
 
 export const normalizeCollection = <K extends string | number, T>(
   items: T[],
   getKeyForElement: (element: T) => K
 ): CollectionModel<K, T> => {
   const collection: CollectionModel<K, T> = getInitialCollectionModel();
+
   items.forEach((item) => {
     const id = getKeyForElement(item);
     collection.order.push(id);
     collection.entities[id] = item;
   });
+
   return collection;
 };
 
-export const addToCollection = <K extends string | number, T>(
-  items: T[],
-  getKeyForElement: (element: T) => K,
-  previousCollection: CollectionModel<K, T>
+export const joinCollections = <K extends string | number, T>(
+  currentCollection: CollectionModel<K, T>,
+  additionalCollection: CollectionModel<K, T>
 ): CollectionModel<K, T> => {
-  items.forEach((item) => {
-    const id = getKeyForElement(item);
-    if (!previousCollection.order.includes(id)) {
-      previousCollection.order.push(id);
-      previousCollection.entities[id] = item;
-    }
-  });
-  return previousCollection;
+  const newOrder: K[] = currentCollection.order.concat(
+    additionalCollection.order
+  );
+  const newEntities: Record<K, T> = currentCollection.entities;
+  additionalCollection.order.map(
+    (el) => (newEntities[el] = additionalCollection.entities[el])
+  );
+
+  const newCollection: CollectionModel<K, T> = {
+    order: newOrder,
+    entities: newEntities,
+  };
+
+  return newCollection;
 };
+
+export const getLength = <K extends string | number, T>(
+  list: CollectionModel<K, T>
+): number => list.order.length;

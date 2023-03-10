@@ -1,5 +1,3 @@
-import { memo } from "react";
-
 import { Loader, LoaderSize } from "@components/Loader/Loader";
 import { ProductCard } from "@components/ProductCard/ProductCard";
 import WithLinkCard from "@components/WithLinkCard";
