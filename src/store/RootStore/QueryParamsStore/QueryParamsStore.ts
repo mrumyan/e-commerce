@@ -1,6 +1,13 @@
 import { action, makeObservable, observable } from "mobx";
 import * as qs from "qs";
 
+export type QueryParamsType =
+  | undefined
+  | string
+  | string[]
+  | qs.ParsedQs
+  | qs.ParsedQs[];
+
 type PrivateFields = "_params";
 
 export default class QueryParamsStore {
@@ -14,9 +21,7 @@ export default class QueryParamsStore {
     });
   }
 
-  getParam(
-    key: string
-  ): undefined | string | string[] | qs.ParsedQs | qs.ParsedQs[] {
+  getParam(key: string): QueryParamsType {
     return this._params[key];
   }
 

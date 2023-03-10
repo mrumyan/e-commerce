@@ -8,6 +8,9 @@
             "@config/*": [
                 "src/config/*"
             ],
+            "@context/*": [
+                "src/context/*"
+            ],
             "@styles/*": [
                 "src/styles/*"
             ],

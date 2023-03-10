@@ -3,25 +3,16 @@ import { memo } from "react";
 import { Loader, LoaderSize } from "@components/Loader/Loader";
 import { ProductCard } from "@components/ProductCard/ProductCard";
 import WithLinkCard from "@components/WithLinkCard";
-import { ProductTypeModel } from "@store/models/product/productType";
+import { useListProducts } from "@context/ListProductsContext";
+import { observer } from "mobx-react-lite";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import styles from "./ProductList.module.scss";
 
-type ProductListProps = {
-  list: ProductTypeModel[];
-  length: number;
-  nextFn: Function;
-  hasMore: boolean;
-};
+const ProductList = () => {
+  const { list, hasMore, getProducts } = useListProducts();
 
-const ProductList: React.FC<ProductListProps> = ({
-  list,
-  length,
-  nextFn,
-  hasMore,
-}: ProductListProps) => {
-  const productList = list.map((product) => (
+  const listProductsWithLinks = list.map((product) => (
     <>{WithLinkCard(ProductCard, product)()}</>
   ));
 
@@ -42,17 +33,19 @@ const ProductList: React.FC<ProductListProps> = ({
         <p className={styles["product-list__number"]}>{list.length}</p>
       </div>
       <InfiniteScroll
-        dataLength={length}
-        next={() => nextFn()}
+        dataLength={list.length}
+        next={getProducts}
         hasMore={hasMore}
         loader={getLoader()}
       >
         <div className={styles["product-list__content-with-scroll"]}>
-          <div className={styles["product-list__content"]}>{productList}</div>
+          <div className={styles["product-list__content"]}>
+            {listProductsWithLinks}
+          </div>
         </div>
       </InfiniteScroll>
     </div>
   );
 };
 
-export default memo(ProductList);
+export default observer(ProductList);

@@ -6,8 +6,6 @@ import ProductDetails from "./pages/ProductDetails/components/ProductDetails";
 import Products from "./pages/Products/components/Products";
 
 const App = () => {
-  useQueryParamsStoreInit();
-
   return (
     <div className={styles.app}>
       <Routes>
