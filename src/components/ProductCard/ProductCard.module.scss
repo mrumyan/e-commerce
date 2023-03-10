@@ -1,0 +1,64 @@
+@import "@styles/variables.scss";
+
+.card {
+    display: flex;
+    flex-direction: column;
+    row-gap: 26px;
+    min-height: 544px;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.02, 1.02);
+    }
+
+    &__image {
+        width: 100%;
+        height: 360px;
+        object-fit: cover;
+
+        @media screen and (max-width: $tablet) {
+            height: 130px;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &__item {
+        font-weight: 700;
+        color: $main-color;
+    }
+
+    &__category {
+        font-size: 18px;
+        line-height: 23px;
+        color: $minor-color;
+    }
+
+    &__title {
+        margin: 14px 0 6px;
+        text-align: left;
+        font-size: 26px;
+        line-height: 34px;
+        letter-spacing: 0.01em;
+    }
+
+    &__subtitle {
+        margin-bottom: 18px;
+        height: 100px;
+        overflow: hidden;
+        text-align: left;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 32px;
+        color: $minor-color;
+    }
+
+    &__content {
+        font-size: 24px;
+        line-height: 31px;
+    }
+}
