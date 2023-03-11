@@ -1,3 +1,4 @@
+import { CategoryTypeModel } from "@store/models/category";
 import {
   CollectionModel,
   getInitialCollectionModel,
@@ -13,7 +14,7 @@ import {
 } from "@store/models/product";
 import rootStore from "@store/RootStore";
 import { QueryParamsType } from "@store/RootStore/QueryParamsStore";
-import { DEFAULT_LIMIT, getProductsListUrl } from "@utils/ApiRequests";
+import { DEFAULT_LIMIT, getFullUrl } from "@utils/ApiRequests";
 import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
@@ -27,26 +28,35 @@ import {
 } from "mobx";
 
 export interface IListProductsStore {
-  getProducts: (hasNewQuery: boolean) => void;
+  setSelectedCategory: (category?: CategoryTypeModel) => void;
+  getProducts: (hasNewQuery: boolean, categoryId?: number) => void;
 }
 
-type PrivateFields = "_list" | "_query" | "_hasMore" | "_hasError";
+type PrivateFields =
+  | "_list"
+  | "_selectedCategory"
+  | "_query"
+  | "_hasMore"
+  | "_hasError";
 
 class ListProductsStore implements IListProductsStore, ILocalStore {
   private _list: CollectionModel<number, ProductTypeModel>;
-  private _query: QueryParamsType;
+  private _selectedCategory?: CategoryTypeModel;
+  private _query?: QueryParamsType;
   private _hasMore: boolean = true;
   private _hasError: boolean = false;
 
   constructor() {
     makeObservable<ListProductsStore, PrivateFields>(this, {
       _list: observable.ref,
+      _selectedCategory: observable,
       _query: observable,
       _hasMore: observable,
       _hasError: observable,
       list: computed,
       query: computed,
       hasError: computed,
+      setSelectedCategory: action.bound,
       getProducts: action.bound,
     });
 
@@ -62,8 +72,20 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
     }
   );
 
+  private readonly _categoryReaction: IReactionDisposer = reaction(
+    () => this._selectedCategory,
+    (selectedCategory) => {
+      this._selectedCategory = selectedCategory;
+      this.getProducts(true);
+    }
+  );
+
   get list(): ProductTypeModel[] {
     return linearizeCollection(this._list);
+  }
+
+  get selectedCategory(): CategoryTypeModel | undefined {
+    return this._selectedCategory;
   }
 
   get query(): QueryParamsType {
@@ -82,10 +104,16 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
     this._query = query;
   }
 
+  setSelectedCategory(category?: CategoryTypeModel): void {
+    this._selectedCategory = category;
+  }
+
   getProducts(hasNewQuery = false): void {
-    const requestUrl = `${getProductsListUrl()}?title=${this._query}&offset=${
-      hasNewQuery ? 0 : getLength(this._list)
-    }&limit=${DEFAULT_LIMIT}`;
+    const requestUrl = getFullUrl(
+      this._query as string,
+      hasNewQuery ? 0 : getLength(this._list),
+      this._selectedCategory?.key
+    );
 
     axios
       .get<ProductTypeApi[]>(requestUrl)
@@ -117,6 +145,7 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
 
   destroy(): void {
     this._qpReaction();
+    this._categoryReaction();
   }
 }
 

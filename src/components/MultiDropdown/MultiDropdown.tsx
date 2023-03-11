@@ -1,18 +1,17 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
+
+import { CategoryTypeModel } from "@store/models/category";
 
 import styles from "./MultiDropdown.module.scss";
 
-export type Option = {
-  key: string;
-  value: string;
-};
-
 type MultiDropdownProps = {
-  options: Option[];
-  value: Option[];
-  onChange: (value: Option[]) => void;
+  options: CategoryTypeModel[];
+  value?: CategoryTypeModel;
+  onChange: (value?: CategoryTypeModel) => void;
+  pluralizeOptions: (value: CategoryTypeModel) => string;
   disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
+  internalText?: string;
+  className?: string;
 };
 
 export const MultiDropdown: React.FC<MultiDropdownProps> = ({
@@ -20,37 +19,45 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
   value,
   onChange,
   disabled,
+  internalText,
+  className,
   pluralizeOptions,
   ...props
 }) => {
-  const selectedOptions: Option[] = value.slice(0);
   const [clicked, setClicked] = useState<boolean>(false);
 
-  const findIndexSelectedOptions = (value: string): number =>
-    selectedOptions.findIndex((item) => item.value === value);
   const onDropdownClick = (): void => setClicked(!clicked);
   const isDropdownShown = (): boolean => clicked && !disabled;
 
-  const handleClick = (option: Option): void => {
-    if (findIndexSelectedOptions(option.value) < 0) {
-      selectedOptions.push(option);
-      onChange([option]);
-    } else {
-      selectedOptions.splice(findIndexSelectedOptions(option.value), 1);
-      onChange(selectedOptions);
-    }
-  };
+  const isOptionAlreadySelected = useCallback(
+    (selectedValue: string) => selectedValue === value?.value,
+    [value]
+  );
 
-  const optionsList: ReactNode = options.map(({ key, value }: Option) => (
-    <li
-      key={key}
-      className={`${findIndexSelectedOptions(value) >= 0 ? "selected" : ""}`}
-      onClick={() => handleClick({ key, value })}
-      {...props}
-    >
-      {value}
-    </li>
-  ));
+  const handleClick = (
+    event: React.MouseEvent,
+    option: CategoryTypeModel
+  ): void =>
+    onChange(!isOptionAlreadySelected(option.value) ? option : undefined);
+
+  const optionsList: ReactNode = options.map(
+    ({ key: categoryKey, value: categoryValue }: CategoryTypeModel) => {
+      return (
+        <li
+          key={categoryKey}
+          className={
+            isOptionAlreadySelected(categoryValue) ? styles["selected"] : ""
+          }
+          onClick={(event) =>
+            handleClick(event, { key: categoryKey, value: categoryValue })
+          }
+          {...props}
+        >
+          {categoryValue}
+        </li>
+      );
+    }
+  );
 
   return (
     <div className={styles["multi-dropdown"]}>
@@ -59,11 +66,11 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
         onClick={onDropdownClick}
         disabled={disabled}
       >
-        {pluralizeOptions(value)}
+        {value ? pluralizeOptions(value) : internalText}
       </button>
       <ul
         className={`${styles["multi-dropdown__content"]} ${
-          isDropdownShown() ? "clicked" : ""
+          isDropdownShown() ? styles["clicked"] : ""
         }`}
       >
         {isDropdownShown() && optionsList}

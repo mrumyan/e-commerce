@@ -1,4 +1,9 @@
 import {
+  CategoryTypeApi,
+  CategoryTypeModel,
+  normalizeCategoryType,
+} from "@store/models/category";
+import {
   CollectionModel,
   getInitialCollectionModel,
   linearizeCollection,
@@ -9,7 +14,11 @@ import {
   ProductTypeApi,
   ProductTypeModel,
 } from "@store/models/product";
-import { getCategoryUrl, SHOWN_ITEM_NUMBERS } from "@utils/ApiRequests";
+import {
+  getCategoriesUrl,
+  getCategoryUrl,
+  SHOWN_ITEM_NUMBERS,
+} from "@utils/ApiRequests";
 import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
@@ -21,22 +30,26 @@ import {
 } from "mobx";
 
 export interface ICategoryStore {
+  getAllCategories: () => void;
   getProductsByCategory: (categoryId?: string) => void;
 }
 
-type PrivateFields = "_products" | "_hasError";
+type PrivateFields = "_products" | "_allCategories" | "_hasError";
 
 class CategoryStore implements ICategoryStore, ILocalStore {
   private _products: CollectionModel<number, ProductTypeModel> =
     getInitialCollectionModel();
+  private _allCategories: CategoryTypeModel[] = [];
   private _hasError: boolean = false;
 
   constructor() {
     makeObservable<CategoryStore, PrivateFields>(this, {
       _products: observable.ref,
+      _allCategories: observable.ref,
       _hasError: observable,
       products: computed,
       hasError: computed,
+      getAllCategories: action.bound,
       getProductsByCategory: action.bound,
     });
   }
@@ -45,8 +58,34 @@ class CategoryStore implements ICategoryStore, ILocalStore {
     return linearizeCollection(this._products);
   }
 
+  get allCategories(): CategoryTypeModel[] {
+    return this._allCategories;
+  }
+
   get hasError(): boolean {
     return this._hasError;
+  }
+
+  getAllCategories(): void {
+    this._allCategories = [];
+
+    axios
+      .get<CategoryTypeApi[]>(getCategoriesUrl())
+      .then((response) => {
+        runInAction(() => {
+          try {
+            this._allCategories = response.data.map(normalizeCategoryType);
+            this._hasError = false;
+          } catch {
+            this._hasError = true;
+            this._allCategories = [];
+          }
+        });
+      })
+      .catch(() => {
+        this._hasError = true;
+        this._allCategories = [];
+      });
   }
 
   getProductsByCategory(categoryId?: string): void {
