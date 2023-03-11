@@ -1,12 +1,13 @@
+import ProductDetails from "@pages/ProductDetails/components/ProductDetails";
+import Products from "@pages/Products/components/Products";
 import { useQueryParamsStoreInit } from "@store/RootStore/hooks/useQueryParamsStoreInit";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import styles from "./App.module.scss";
-import ProductDetails from "./pages/ProductDetails/components/ProductDetails";
-import Products from "./pages/Products/components/Products";
 
 const App = () => {
   useQueryParamsStoreInit();
+
   return (
     <div className={styles.app}>
       <Routes>

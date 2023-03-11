@@ -1,9 +1,9 @@
+import WithLoader from "@components/WithLoader";
 import cn from "classnames";
 
 import styles from "./Button.module.scss";
-import { WithLoader } from "../WithLoader/WithLoader";
 
-export type ButtonProps = React.PropsWithChildren<{
+type ButtonProps = React.PropsWithChildren<{
   loading?: boolean;
   disabled?: boolean;
   className?: string;

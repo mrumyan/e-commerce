@@ -1,12 +1,13 @@
 import { useCallback, useEffect } from "react";
 
 import CustomError from "@components/Error";
-import { Input } from "@components/Input/Input";
+import Input from "@components/Input";
 import Page from "@components/Page";
 import { CategoryContext } from "@context/CategoryContext";
 import { ListProductsContext } from "@context/ListProductsContext";
 import CategoryStore from "@store/CategoryStore";
 import ListProductsStore from "@store/ListProductsStore";
+import { Meta } from "@utils/meta";
 import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +19,6 @@ import ProductList from "../ProductList";
 const Products = () => {
   const listProductsStore = useLocalStore(() => new ListProductsStore());
   const categoryStore = useLocalStore(() => new CategoryStore());
-
   let navigate = useNavigate();
 
   const getProducts = useCallback(listProductsStore.getProducts, []);
@@ -29,9 +29,15 @@ const Products = () => {
     getCategories();
   }, []);
 
+  const setParams = useCallback(
+    () => navigate(`?title=${listProductsStore.query}`),
+    [listProductsStore.query]
+  );
+
   const onChange = (query: string) => {
     listProductsStore.setQuery(query);
-    navigate(`?title=${listProductsStore.query}`);
+    //navigate(`?title=${listProductsStore.query}`);
+    setParams();
   };
 
   return (
@@ -53,7 +59,7 @@ const Products = () => {
             <Filter />
           </CategoryContext.Provider>
         </div>
-        {listProductsStore.hasError ? (
+        {listProductsStore.meta === Meta.error ? (
           <CustomError onClick={getProducts} />
         ) : (
           <ProductList />

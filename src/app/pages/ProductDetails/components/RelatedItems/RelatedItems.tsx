@@ -1,8 +1,9 @@
 import { useCallback, useEffect } from "react";
 
 import CustomError from "@components/Error";
-import { ProductCard } from "@components/ProductCard/ProductCard";
+import { ProductCard } from "@components/ProductCard";
 import CategoryStore from "@store/CategoryStore";
+import { Meta } from "@utils/meta";
 import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 
@@ -26,7 +27,7 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
     <ProductCard key={product.id} product={product} />
   ));
 
-  if (categoryStore.hasError) {
+  if (categoryStore.meta === Meta.error) {
     return <CustomError onClick={getRelatedProducts} />;
   } else {
     return (

@@ -1,10 +1,10 @@
-import { ProductCardProps } from "@components/ProductCard/ProductCard";
+import { ProductCardProps } from "@components/ProductCard";
 import { ProductTypeModel } from "@store/models/product";
 import { Link } from "react-router-dom";
 
 import styles from "./WithLinkCard.module.scss";
 
-export const WithLinkCard = (
+const WithLinkCard = (
   Component: React.FC<ProductCardProps>,
   product: ProductTypeModel
 ) => {

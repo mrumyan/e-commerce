@@ -5,17 +5,20 @@
             "@components/*": [
                 "src/components/*"
             ],
-            "@config/*": [
-                "src/config/*"
+            "@configs/*": [
+                "src/configs/*"
             ],
             "@context/*": [
                 "src/context/*"
             ],
-            "@styles/*": [
-                "src/styles/*"
+            "@pages/*": [
+                "src/app/pages/*"
             ],
             "@store/*": [
                 "src/store/*"
+            ],
+            "@styles/*": [
+                "src/styles/*"
             ],
             "@utils/*": [
                 "src/utils/*"

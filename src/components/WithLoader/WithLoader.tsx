@@ -1,11 +1,11 @@
 import styles from "./WithLoader.module.scss";
 import { Loader, LoaderSize } from "../Loader/Loader";
 
-export type WithLoaderProps = React.PropsWithChildren<{
+type WithLoaderProps = React.PropsWithChildren<{
   loading: boolean;
 }>;
 
-export const WithLoader: React.FC<WithLoaderProps> = ({
+const WithLoader: React.FC<WithLoaderProps> = ({
   loading = true,
   children,
 }) => {
@@ -22,3 +22,5 @@ export const WithLoader: React.FC<WithLoaderProps> = ({
     </div>
   );
 };
+
+export default WithLoader;

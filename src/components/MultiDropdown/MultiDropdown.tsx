@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useState } from "react";
 
+import { Loader, LoaderSize } from "@components/Loader";
 import { CategoryTypeModel } from "@store/models/category";
 
 import styles from "./MultiDropdown.module.scss";
@@ -9,19 +10,21 @@ type MultiDropdownProps = {
   value?: CategoryTypeModel;
   onChange: (value?: CategoryTypeModel) => void;
   pluralizeOptions: (value: CategoryTypeModel) => string;
+  loading?: boolean;
   disabled?: boolean;
   internalText?: string;
   className?: string;
 };
 
-export const MultiDropdown: React.FC<MultiDropdownProps> = ({
+const MultiDropdown: React.FC<MultiDropdownProps> = ({
   options,
   value,
   onChange,
+  pluralizeOptions,
+  loading,
   disabled,
   internalText,
   className,
-  pluralizeOptions,
   ...props
 }) => {
   const [clicked, setClicked] = useState<boolean>(false);
@@ -66,7 +69,13 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
         onClick={onDropdownClick}
         disabled={disabled}
       >
-        {value ? pluralizeOptions(value) : internalText}
+        {loading ? (
+          <Loader loading={loading} size={LoaderSize.s} />
+        ) : value ? (
+          pluralizeOptions(value)
+        ) : (
+          internalText
+        )}
       </button>
       <ul
         className={`${styles["multi-dropdown__content"]} ${
@@ -78,3 +87,5 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
     </div>
   );
 };
+
+export default MultiDropdown;

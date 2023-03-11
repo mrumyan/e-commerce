@@ -2,7 +2,7 @@ import cn from "classnames";
 
 import styles from "./Input.module.scss";
 
-export type InputProps = Omit<
+type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onChange" | "value"
 > & {
@@ -12,7 +12,7 @@ export type InputProps = Omit<
   onChange: (value: string) => void;
 };
 
-export const Input: React.FC<InputProps> = ({
+const Input: React.FC<InputProps> = ({
   value,
   onChange,
   disabled,
@@ -38,3 +38,5 @@ export const Input: React.FC<InputProps> = ({
     />
   );
 };
+
+export default Input;

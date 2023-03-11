@@ -1,11 +1,12 @@
-import { MultiDropdown } from "@components/MultiDropdown/MultiDropdown";
+import MultiDropdown from "@components/MultiDropdown";
 import { useCategory } from "@context/CategoryContext";
 import { useListProducts } from "@context/ListProductsContext";
+import { Meta } from "@utils/meta";
 import { observer } from "mobx-react-lite";
 
 const Filter = () => {
   const { allCategories } = useCategory();
-  const { selectedCategory, setSelectedCategory } = useListProducts();
+  const { selectedCategory, setSelectedCategory, meta } = useListProducts();
 
   return (
     <MultiDropdown
@@ -14,6 +15,8 @@ const Filter = () => {
       onChange={setSelectedCategory}
       pluralizeOptions={() => `Selected: ${selectedCategory?.value}`}
       internalText="Filter"
+      loading={meta === Meta.loading}
+      disabled={meta === Meta.loading}
     />
   );
 };

@@ -15,6 +15,7 @@ import {
 import rootStore from "@store/RootStore";
 import { QueryParamsType } from "@store/RootStore/QueryParamsStore";
 import { DEFAULT_LIMIT, getFullUrl } from "@utils/ApiRequests";
+import { Meta } from "@utils/meta";
 import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
@@ -37,14 +38,14 @@ type PrivateFields =
   | "_selectedCategory"
   | "_query"
   | "_hasMore"
-  | "_hasError";
+  | "_meta";
 
 class ListProductsStore implements IListProductsStore, ILocalStore {
   private _list: CollectionModel<number, ProductTypeModel>;
   private _selectedCategory?: CategoryTypeModel;
   private _query?: QueryParamsType;
-  private _hasMore: boolean = true;
-  private _hasError: boolean = false;
+  private _hasMore: boolean;
+  private _meta: Meta;
 
   constructor() {
     makeObservable<ListProductsStore, PrivateFields>(this, {
@@ -52,16 +53,18 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
       _selectedCategory: observable,
       _query: observable,
       _hasMore: observable,
-      _hasError: observable,
+      _meta: observable,
       list: computed,
       query: computed,
-      hasError: computed,
+      meta: computed,
       setSelectedCategory: action.bound,
       getProducts: action.bound,
     });
 
     this._list = getInitialCollectionModel();
     this._query = rootStore.queryParamsStore.getParam("title") ?? "";
+    this._hasMore = true;
+    this._meta = Meta.initial;
   }
 
   private readonly _qpReaction: IReactionDisposer = reaction(
@@ -96,8 +99,8 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
     return this._hasMore;
   }
 
-  get hasError(): boolean {
-    return this._hasError;
+  get meta(): Meta {
+    return this._meta;
   }
 
   setQuery(query: string): void {
@@ -109,6 +112,8 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
   }
 
   getProducts(hasNewQuery = false): void {
+    this._meta = Meta.loading;
+
     const requestUrl = getFullUrl(
       this._query as string,
       hasNewQuery ? 0 : getLength(this._list),
@@ -128,18 +133,18 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
               normalizeCollection(list, (item) => item.id)
             );
             this._hasMore = !(list.length < DEFAULT_LIMIT);
-            this._hasError = false;
+            this._meta = Meta.success;
           } catch {
             this._list = getInitialCollectionModel();
-            this._hasError = true;
             this._hasMore = false;
+            this._meta = Meta.error;
           }
         });
       })
       .catch(() => {
         this._list = getInitialCollectionModel();
-        this._hasError = true;
         this._hasMore = false;
+        this._meta = Meta.error;
       });
   }
 

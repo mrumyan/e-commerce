@@ -14,7 +14,7 @@
         padding-left: 94px;
         border: none;
         background: $white-color;
-        box-shadow: 0px 4px 120px rgba(175, 173, 181, 0.15);
+        box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.2);
         text-align: left;
         font-size: 18px;
         line-height: 32px;
@@ -23,6 +23,7 @@
         &::before {
             content: url(filter-icon.png);
             position: absolute;
+            top: 26px;
             left: 52px;
         }
 

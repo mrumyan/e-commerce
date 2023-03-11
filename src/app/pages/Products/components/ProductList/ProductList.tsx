@@ -1,5 +1,5 @@
-import { Loader, LoaderSize } from "@components/Loader/Loader";
-import { ProductCard } from "@components/ProductCard/ProductCard";
+import { Loader, LoaderSize } from "@components/Loader";
+import { ProductCard } from "@components/ProductCard";
 import WithLinkCard from "@components/WithLinkCard";
 import { useListProducts } from "@context/ListProductsContext";
 import { observer } from "mobx-react-lite";
@@ -20,7 +20,7 @@ const ProductList = () => {
         loading={hasMore}
         size={LoaderSize.l}
         className={styles["product-list__scroll"]}
-      ></Loader>
+      />
     );
   };
 

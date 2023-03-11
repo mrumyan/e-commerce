@@ -4,11 +4,11 @@
     display: grid;
     grid-template-columns: 600px 1fr;
     grid-template-rows: 1fr;
-    gap: 0 50px;
+    gap: 50px;
 
     @media screen and (max-width: $desktop) {
         grid-template-columns: 500px 1fr;
-        gap: 0 30px;
+        gap: 30px;
     }
 
     @media screen and (max-width: $tablet) {

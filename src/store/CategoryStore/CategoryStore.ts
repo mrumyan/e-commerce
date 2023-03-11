@@ -19,6 +19,7 @@ import {
   getCategoryUrl,
   SHOWN_ITEM_NUMBERS,
 } from "@utils/ApiRequests";
+import { Meta } from "@utils/meta";
 import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
@@ -34,24 +35,27 @@ export interface ICategoryStore {
   getProductsByCategory: (categoryId?: string) => void;
 }
 
-type PrivateFields = "_products" | "_allCategories" | "_hasError";
+type PrivateFields = "_products" | "_allCategories" | "_meta";
 
 class CategoryStore implements ICategoryStore, ILocalStore {
-  private _products: CollectionModel<number, ProductTypeModel> =
-    getInitialCollectionModel();
-  private _allCategories: CategoryTypeModel[] = [];
-  private _hasError: boolean = false;
+  private _products: CollectionModel<number, ProductTypeModel>;
+  private _allCategories: CollectionModel<number, CategoryTypeModel>;
+  private _meta: Meta;
 
   constructor() {
     makeObservable<CategoryStore, PrivateFields>(this, {
       _products: observable.ref,
       _allCategories: observable.ref,
-      _hasError: observable,
+      _meta: observable,
       products: computed,
-      hasError: computed,
+      meta: computed,
       getAllCategories: action.bound,
       getProductsByCategory: action.bound,
     });
+
+    this._products = getInitialCollectionModel();
+    this._allCategories = getInitialCollectionModel();
+    this._meta = Meta.initial;
   }
 
   get products(): ProductTypeModel[] {
@@ -59,37 +63,43 @@ class CategoryStore implements ICategoryStore, ILocalStore {
   }
 
   get allCategories(): CategoryTypeModel[] {
-    return this._allCategories;
+    return linearizeCollection(this._allCategories);
   }
 
-  get hasError(): boolean {
-    return this._hasError;
+  get meta(): Meta {
+    return this._meta;
   }
 
   getAllCategories(): void {
-    this._allCategories = [];
+    this._meta = Meta.loading;
+    this._allCategories = getInitialCollectionModel();
 
     axios
       .get<CategoryTypeApi[]>(getCategoriesUrl())
       .then((response) => {
         runInAction(() => {
           try {
-            this._allCategories = response.data.map(normalizeCategoryType);
-            this._hasError = false;
+            this._allCategories = normalizeCollection(
+              response.data.map(normalizeCategoryType),
+              (item) => item.key
+            );
+            this._meta = Meta.success;
           } catch {
-            this._hasError = true;
-            this._allCategories = [];
+            this._allCategories = getInitialCollectionModel();
+            this._meta = Meta.error;
           }
         });
       })
       .catch(() => {
-        this._hasError = true;
-        this._allCategories = [];
+        this._allCategories = getInitialCollectionModel();
+        this._meta = Meta.error;
       });
   }
 
   getProductsByCategory(categoryId?: string): void {
+    this._meta = Meta.loading;
     this._products = getInitialCollectionModel();
+
     const requestUrl: string = getCategoryUrl(categoryId);
 
     axios
@@ -101,16 +111,16 @@ class CategoryStore implements ICategoryStore, ILocalStore {
               .slice(0, SHOWN_ITEM_NUMBERS)
               .map(normalizeProductType);
             this._products = normalizeCollection(shownList, (item) => item.id);
-            this._hasError = false;
+            this._meta = Meta.success;
           } catch {
-            this._hasError = true;
             this._products = getInitialCollectionModel();
+            this._meta = Meta.error;
           }
         });
       })
       .catch(() => {
-        this._hasError = true;
         this._products = getInitialCollectionModel();
+        this._meta = Meta.error;
       });
   }
 

@@ -4,7 +4,7 @@ import Header from "@components/Header";
 
 import styles from "./Page.module.scss";
 
-export type PageProps = React.PropsWithChildren<{
+type PageProps = React.PropsWithChildren<{
   children?: ReactNode;
 }>;
 

@@ -8,7 +8,7 @@ export enum LoaderSize {
   l = "l",
 }
 
-export type LoaderProps = {
+type LoaderProps = {
   loading?: boolean;
   size?: LoaderSize;
   className?: string;
