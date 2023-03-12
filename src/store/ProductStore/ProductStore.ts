@@ -4,6 +4,7 @@ import {
   ProductTypeModel,
 } from "@store/models/product";
 import { getProductUrl } from "@utils/ApiRequests";
+import { Meta } from "@utils/meta";
 import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
@@ -18,18 +19,18 @@ export interface IProductStore {
   getProduct: (productId?: string) => void;
 }
 
-type PrivateFields = "_product" | "_hasError";
+type PrivateFields = "_product" | "_meta";
 
 class ProductStore implements IProductStore, ILocalStore {
   private _product: ProductTypeModel | null = null;
-  private _hasError: boolean = false;
+  private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<ProductStore, PrivateFields>(this, {
       _product: observable,
-      _hasError: observable,
+      _meta: observable,
       product: computed,
-      hasError: computed,
+      meta: computed,
       getProduct: action.bound,
     });
   }
@@ -38,8 +39,8 @@ class ProductStore implements IProductStore, ILocalStore {
     return this._product;
   }
 
-  get hasError(): boolean {
-    return this._hasError;
+  get meta(): Meta {
+    return this._meta;
   }
 
   getProduct(productId?: string): void {
@@ -52,16 +53,16 @@ class ProductStore implements IProductStore, ILocalStore {
         runInAction(() => {
           try {
             this._product = normalizeProductType(response.data);
-            this._hasError = false;
+            this._meta = Meta.success;
           } catch {
-            this._hasError = true;
             this._product = null;
+            this._meta = Meta.error;
           }
         });
       })
       .catch(() => {
-        this._hasError = true;
         this._product = null;
+        this._meta = Meta.error;
       });
   }
 

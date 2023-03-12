@@ -9,7 +9,7 @@ export const CategoryContext = createContext<CategoryStore | undefined>(
 export const useCategory = () => {
   const context = useContext(CategoryContext);
   if (context === undefined) {
-    throw new Error("useCategory must be used within a CountProvider");
+    throw new Error("useCategory must be used within a Provider");
   }
   return context;
 };

@@ -1,19 +1,17 @@
 import Button from "@components/Button";
+import { useProduct } from "@context/ProductContext";
 import cn from "classnames";
 
 import styles from "./ProductDescription.module.scss";
 
-type ProductDescriptionProps = {
-  title: string;
-  subtitle: string;
-  content?: string;
-};
+const ProductDescription: React.FC = () => {
+  const { product } = useProduct();
+  if (!product) {
+    return null;
+  }
 
-const ProductDescription: React.FC<ProductDescriptionProps> = ({
-  title,
-  subtitle,
-  content,
-}) => {
+  const { title, subtitle, content } = product;
+
   const titleClassNames = cn(styles.product__item, styles.product__title);
   const subtitleClassNames = cn(styles.product__item, styles.product__subtitle);
   const contentClassNames = cn(styles.product__item, styles.product__content);

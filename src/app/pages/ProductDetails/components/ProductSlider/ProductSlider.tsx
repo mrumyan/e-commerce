@@ -1,13 +1,15 @@
+import { useProduct } from "@context/ProductContext";
 import { useCallback, useRef, useState } from "react";
 
 import styles from "./ProductSlider.module.scss";
 
-type ProductSliderProps = {
-  images: string[];
-  alt: string;
-};
+const ProductSlider: React.FC = () => {
+  const { product } = useProduct();
+  if (!product) {
+    return null;
+  }
 
-const ProductSlider: React.FC<ProductSliderProps> = ({ images, alt }) => {
+  const { title, images } = product;
   const [currentImageNumber, setCurrentImageNumber] = useState(0);
 
   let imagesNumber = useRef(3);
@@ -31,7 +33,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ images, alt }) => {
       <img
         className={styles.product__image}
         src={images[currentImageNumber]}
-        alt={alt}
+        alt={title}
       />
       <button
         className={styles.product__next}

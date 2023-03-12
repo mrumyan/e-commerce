@@ -41,11 +41,11 @@ type PrivateFields =
   | "_meta";
 
 class ListProductsStore implements IListProductsStore, ILocalStore {
-  private _list: CollectionModel<number, ProductTypeModel>;
-  private _selectedCategory?: CategoryTypeModel;
-  private _query?: QueryParamsType;
-  private _hasMore: boolean;
-  private _meta: Meta;
+  private _list: CollectionModel<number, ProductTypeModel> = getInitialCollectionModel();
+  private _selectedCategory?: CategoryTypeModel | undefined = undefined;
+  private _query?: QueryParamsType = rootStore.queryParamsStore.getParam("title") ?? "";
+  private _hasMore: boolean = true;
+  private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<ListProductsStore, PrivateFields>(this, {
@@ -60,17 +60,12 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
       setSelectedCategory: action.bound,
       getProducts: action.bound,
     });
-
-    this._list = getInitialCollectionModel();
-    this._query = rootStore.queryParamsStore.getParam("title") ?? "";
-    this._hasMore = true;
-    this._meta = Meta.initial;
   }
 
   private readonly _qpReaction: IReactionDisposer = reaction(
     () => rootStore.queryParamsStore.getParam("title"),
     (search) => {
-      this._query = search;
+      this._query = search ?? "";
       this.getProducts(true);
     }
   );

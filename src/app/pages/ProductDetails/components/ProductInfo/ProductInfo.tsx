@@ -8,6 +8,8 @@ import { observer } from "mobx-react-lite";
 import styles from "./ProductInfo.module.scss";
 import ProductDescription from "../ProductDescription";
 import ProductSlider from "../ProductSlider";
+import { Meta } from "@utils/meta";
+import { ProductContext } from "@context/ProductContext";
 
 type ProductInfoProps = {
   id?: string;
@@ -18,25 +20,19 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
 
   const getProduct = useCallback(() => productStore.getProduct(id), []);
 
-  useEffect(getProduct, [productStore]);
+  useEffect(getProduct, []);
 
-  if (productStore.hasError) {
+  if (productStore.meta === Meta.error) {
     return <CustomError onClick={getProduct} />;
-  } else if (productStore.product) {
-    const { title, subtitle, images, content } = productStore.product;
-
-    return (
-      <div className={styles.main__product}>
-        <ProductSlider images={images} alt={title} />
-        <ProductDescription
-          title={title}
-          subtitle={subtitle}
-          content={content}
-        />
-      </div>
-    );
   } else {
-    return null;
+    return (
+      <ProductContext.Provider value={productStore}>
+        <div className={styles.main__product}>
+          <ProductSlider />
+          <ProductDescription />
+        </div>
+      </ProductContext.Provider>
+    );
   }
 };
 

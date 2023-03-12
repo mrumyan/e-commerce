@@ -17,7 +17,6 @@ import {
 import {
   getCategoriesUrl,
   getRelatedItemsUrl,
-  SHOWN_ITEM_NUMBERS,
 } from "@utils/ApiRequests";
 import { Meta } from "@utils/meta";
 import { ILocalStore } from "@utils/useLocalStore";
@@ -38,9 +37,9 @@ export interface ICategoryStore {
 type PrivateFields = "_products" | "_allCategories" | "_meta";
 
 class CategoryStore implements ICategoryStore, ILocalStore {
-  private _products: CollectionModel<number, ProductTypeModel>;
-  private _allCategories: CollectionModel<number, CategoryTypeModel>;
-  private _meta: Meta;
+  private _products: CollectionModel<number, ProductTypeModel> = getInitialCollectionModel();
+  private _allCategories: CollectionModel<number, CategoryTypeModel> = getInitialCollectionModel();
+  private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<CategoryStore, PrivateFields>(this, {
@@ -52,10 +51,6 @@ class CategoryStore implements ICategoryStore, ILocalStore {
       getAllCategories: action.bound,
       getProductsByCategory: action.bound,
     });
-
-    this._products = getInitialCollectionModel();
-    this._allCategories = getInitialCollectionModel();
-    this._meta = Meta.initial;
   }
 
   get products(): ProductTypeModel[] {

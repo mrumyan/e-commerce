@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./configs/configureMobX.ts";
 
 import ReactDOM from "react-dom/client";
@@ -15,9 +13,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  // <React.StrictMode>
   <BrowserRouter>
     <App />
   </BrowserRouter>
-  // </React.StrictMode>
 );
+
+if(module.hot) {
+  module.hot.accept();
+}
