@@ -1,0 +1,77 @@
+@import "@styles/variables.scss";
+
+.multi-dropdown {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    position: relative;
+
+    &__title {
+        cursor: pointer;
+        position: relative;
+        width: 368px;
+        height: 86px;
+        padding-left: 94px;
+        border: none;
+        background: $white-color;
+        box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.2);
+        text-align: left;
+        font-size: 18px;
+        line-height: 32px;
+        color: $minor-color;
+
+        &::before {
+            content: url(filter-icon.png);
+            position: absolute;
+            top: 26px;
+            left: 52px;
+        }
+
+        &:focus {
+            color: $main-color;
+        }
+
+        &:disabled {
+            opacity: 0.7;
+        }
+    }
+
+    &__content {
+        display: none;
+        position: absolute;
+        top: 86px;
+        width: 368px;
+        list-style: none;
+        background: $white-color;
+        border: 1px solid $white-color;
+        box-shadow: 0px 4px 120px rgba(175, 173, 181, 0.15);
+        z-index: 2;
+
+        li {
+            box-sizing: border-box;
+            cursor: pointer;
+            height: 50px;
+            padding-top: 16px;
+            padding-left: 16px;
+            font-family: 'Eudoxus Sans';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            color: $black-color;
+
+            &:hover {
+                color: $highlight-color;
+            }
+        }
+
+        li.selected {
+            color: $highlight-color;
+        }
+    }
+
+    &__content.clicked {
+        display: flex;
+        flex-direction: column;
+    }
+}

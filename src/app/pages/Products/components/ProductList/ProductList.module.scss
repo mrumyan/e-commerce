@@ -1,0 +1,72 @@
+@import "@styles/variables.scss";
+
+.main__product-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-list {
+    &__total {
+        align-self: flex-start;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+    }
+
+    &__title {
+        margin: 51px 0 50px;
+        font-size: 44px;
+        line-height: 57px;
+        color: $main-color;
+
+        @media screen and (max-width: $tablet) {
+            font-size: 18px;
+            line-height: 23px;
+        }
+    }
+
+    &__number {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 21px;
+        color: $highlight-color;
+
+        @media screen and (max-width: $tablet) {
+            font-size: 12px;
+            line-height: 22px;
+        }
+    }
+
+    &__content-with-scroll {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        height: 100%;
+        overflow: auto;
+    }
+
+    &__scroll {
+        margin: 20px auto 20px;
+    }
+
+    &__content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px 29px;
+
+        @media screen and (min-width: $wide) {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        @media screen and (max-width: $tablet) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media screen and (max-width: $mobile) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
