@@ -50,8 +50,8 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
   constructor() {
     makeObservable<ListProductsStore, PrivateFields>(this, {
       _list: observable.ref,
-      _selectedCategory: observable,
-      _query: observable,
+      _selectedCategory: observable.ref,
+      _query: observable.ref,
       _hasMore: observable,
       _meta: observable,
       list: computed,

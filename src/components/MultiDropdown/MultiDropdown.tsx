@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 
 import { Loader, LoaderSize } from "@components/Loader";
 import { CategoryTypeModel } from "@store/models/category";
@@ -29,8 +29,11 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 }) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
-  const onDropdownClick = (): void => setClicked(!clicked);
-  const isDropdownShown = (): boolean => clicked && !disabled;
+  const onDropdownClick = useCallback(() => setClicked(!clicked), [clicked]);
+  const isDropdownShown = useCallback(
+    (): boolean => clicked && !disabled,
+    [clicked, disabled]
+  );
 
   const isOptionAlreadySelected = useCallback(
     (selectedValue: string) => selectedValue === value?.value,

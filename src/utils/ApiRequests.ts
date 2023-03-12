@@ -11,15 +11,17 @@ export const getProductsListUrl = (): string => {
 };
 
 export const getProductUrl = (productId?: string): string => {
-  return `${BASE_URL}/products/${productId ?? DEFAULT_PRODUCT_ID}`;
+  return `${getProductsListUrl()}/${productId ?? DEFAULT_PRODUCT_ID}`;
 };
 
 export const getCategoriesUrl = (): string => {
   return `${BASE_URL}/categories`;
 };
 
-export const getCategoryUrl = (categotyId?: string): string => {
-  return `${getCategoriesUrl()}/${categotyId ?? DEFAULT_CATEGORY}/products`;
+export const getRelatedItemsUrl = (categotyId?: string): string => {
+  return `${getCategoriesUrl()}/${
+    categotyId ?? DEFAULT_CATEGORY
+  }/products?offset=0&limit=${SHOWN_ITEM_NUMBERS}`;
 };
 
 export const getFullUrl = (

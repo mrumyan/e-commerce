@@ -29,16 +29,10 @@ const Products = () => {
     getCategories();
   }, []);
 
-  const setParams = useCallback(
-    () => navigate(`?title=${listProductsStore.query}`),
-    [listProductsStore.query]
-  );
-
-  const onChange = (query: string) => {
+  const onChange = useCallback((query: string) => {
     listProductsStore.setQuery(query);
-    //navigate(`?title=${listProductsStore.query}`);
-    setParams();
-  };
+    navigate(`?title=${query}`);
+  }, []);
 
   return (
     <ListProductsContext.Provider value={listProductsStore}>

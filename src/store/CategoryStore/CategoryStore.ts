@@ -16,7 +16,7 @@ import {
 } from "@store/models/product";
 import {
   getCategoriesUrl,
-  getCategoryUrl,
+  getRelatedItemsUrl,
   SHOWN_ITEM_NUMBERS,
 } from "@utils/ApiRequests";
 import { Meta } from "@utils/meta";
@@ -100,17 +100,17 @@ class CategoryStore implements ICategoryStore, ILocalStore {
     this._meta = Meta.loading;
     this._products = getInitialCollectionModel();
 
-    const requestUrl: string = getCategoryUrl(categoryId);
+    const requestUrl: string = getRelatedItemsUrl(categoryId);
 
     axios
       .get<ProductTypeApi[]>(requestUrl)
       .then((response) => {
         runInAction(() => {
           try {
-            const shownList = response.data
-              .slice(0, SHOWN_ITEM_NUMBERS)
-              .map(normalizeProductType);
-            this._products = normalizeCollection(shownList, (item) => item.id);
+            this._products = normalizeCollection(
+              response.data.map(normalizeProductType),
+              (item) => item.id
+            );
             this._meta = Meta.success;
           } catch {
             this._products = getInitialCollectionModel();
