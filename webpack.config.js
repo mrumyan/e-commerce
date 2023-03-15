@@ -35,7 +35,8 @@ module.exports = {
     devtool: isProd ? "hidden-source-map" : "eval-source-map",
     output: {
         path: buildPath,
-        filename: "bundle.js"
+        filename: "bundle.js",
+        publicPath: '/'
     },
     plugins: [
         new HTMLWebpackPlugin({
