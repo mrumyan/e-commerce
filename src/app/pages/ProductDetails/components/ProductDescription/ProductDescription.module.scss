@@ -1,10 +1,9 @@
 @import "@styles/variables.scss";
+@import "@styles/mixins.scss";
 
 .product {
     &__info {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        @include flex-column;
 
         p {
             text-align: left;

@@ -8,6 +8,8 @@ import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 
 import styles from "./RelatedItem.module.scss";
+import WithLinkCard from "@components/WithLinkCard";
+import { Link } from "react-router-dom";
 
 type RelatedItemsProps = {
   category?: string;
@@ -16,6 +18,8 @@ type RelatedItemsProps = {
 const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
   const categoryStore = useLocalStore(() => new CategoryStore());
 
+  const { products, meta } = categoryStore;
+
   const getRelatedProducts = useCallback(
     () => categoryStore.getProductsByCategory(category),
     []
@@ -23,18 +27,16 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
 
   useEffect(getRelatedProducts, [categoryStore]);
 
-  const relatedProductsList = categoryStore.products.map((product) => (
-    <ProductCard key={product.id} product={product} />
-  ));
-
-  if (categoryStore.meta === Meta.error) {
+  if (meta === Meta.error) {
     return <CustomError onClick={getRelatedProducts} />;
   } else {
     return (
       <div className={styles["main__related-items"]}>
         <p className={styles["related-items__title"]}>Related Items</p>
         <div className={styles["related-items__content"]}>
-          {relatedProductsList}
+          {products.map((product) => (
+            <ProductCard product={product} />
+          ))}
         </div>
       </div>
     );

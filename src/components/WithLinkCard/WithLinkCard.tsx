@@ -1,25 +1,28 @@
-import { ProductCardProps } from "@components/ProductCard";
+// import { ProductCardProps } from "@components/ProductCard";
 import { ProductTypeModel } from "@store/models/product";
+import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./WithLinkCard.module.scss";
 
 const WithLinkCard = (
-  Component: React.FC<ProductCardProps>,
-  product: ProductTypeModel
+  // Component: React.FC<ProductCardProps>,
+  // product: ProductTypeModel
 ) => {
-  const WithLinkCardComponent = () => {
-    return (
-      <Link
-        className={styles["product-list__item"]}
-        key={product.id}
-        to={`/product/${product?.categoryId}/${product.id}`}
-      >
-        <Component key={product.id} product={product} />
-      </Link>
-    );
-  };
-  return WithLinkCardComponent;
+  // const WithLinkCardComponent = () => {
+  //   const { categoryId, id } = product;
+
+  //   return (
+  //     <Link
+  //       className={styles["product-list__item"]}
+  //       key={id}
+  //       to={`/product/${categoryId}/${id}`}
+  //     >
+  //       <Component key={id} product={product} />
+  //     </Link>
+  //   );
+  // };
+  // return WithLinkCardComponent;
 };
 
 export default WithLinkCard;

@@ -26,9 +26,11 @@ import {
   runInAction,
   IReactionDisposer,
   reaction,
+  makeAutoObservable,
 } from "mobx";
 
 export interface IListProductsStore {
+  setQuery: (query: string) => void;
   setSelectedCategory: (category?: CategoryTypeModel) => void;
   getProducts: (hasNewQuery: boolean, categoryId?: number) => void;
 }
@@ -57,6 +59,7 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
       list: computed,
       query: computed,
       meta: computed,
+      setQuery: action.bound,
       setSelectedCategory: action.bound,
       getProducts: action.bound,
     });

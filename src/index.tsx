@@ -3,7 +3,6 @@ import "./configs/configureMobX.ts";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
-import "./index.scss";
 import "./styles/styles.scss";
 
 import App from "./app";
