@@ -22,11 +22,12 @@ const Filter = () => {
   }, []);
 
   return (
-    <div className={styles.main__search}>
+    <div className={styles.main__filter}>
       <Input
         value={query as string}
         onChange={onChange}
         placeholder="Search by title"
+        className={styles.main__search}
       />
       <MultiDropdown
         options={allCategories}
@@ -36,6 +37,7 @@ const Filter = () => {
         internalText="Filter"
         loading={meta === Meta.loading}
         disabled={meta === Meta.loading}
+        className={styles.main__categories}
       />
     </div>
   );

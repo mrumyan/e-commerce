@@ -1,5 +1,7 @@
 import { ReactNode, useCallback, useEffect, useState } from "react";
 
+import cn from "classnames";
+
 import { Loader, LoaderSize } from "@components/Loader";
 import { CategoryTypeModel } from "@store/models/category";
 
@@ -28,6 +30,8 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   ...props
 }) => {
   const [clicked, setClicked] = useState<boolean>(false);
+
+
 
   const onDropdownClick = useCallback(() => setClicked(!clicked), [clicked]);
   const isDropdownShown = useCallback(
@@ -65,8 +69,16 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     }
   );
 
+  const dropdownClassNames = cn(styles["multi-dropdown"], className);
+  const contentClassNames = cn(
+    styles["multi-dropdown__content"],
+    {
+      [styles.clicked]: isDropdownShown(),
+    }
+  );
+
   return (
-    <div className={styles["multi-dropdown"]}>
+    <div className={dropdownClassNames}>
       <button
         className={styles["multi-dropdown__title"]}
         onClick={onDropdownClick}
@@ -80,11 +92,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
           internalText
         )}
       </button>
-      <ul
-        className={`${styles["multi-dropdown__content"]} ${
-          isDropdownShown() ? styles["clicked"] : ""
-        }`}
-      >
+      <ul className={`${contentClassNames}`}>
         {isDropdownShown() && optionsList}
       </ul>
     </div>

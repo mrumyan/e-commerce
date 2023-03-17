@@ -1,6 +1,6 @@
 @import "./variables.scss";
 
-@mixin title-h1() {
+@mixin title-h1 {
     font-size: 64px;
     line-height: 83px;
     color: $main-color;
@@ -16,7 +16,7 @@
     }
 }
 
-@mixin title-h2() {
+@mixin title-h2 {
     font-size: 44px;
     line-height: 57px;
     color: $main-color;
@@ -32,7 +32,7 @@
     }
 }
 
-@mixin subtitle() {
+@mixin subtitle {
     font-size: 18px;
     line-height: 32px;
     color: $minor-color;
@@ -48,22 +48,22 @@
     }
 }
 
-@mixin flex-row() {
+@mixin flex-row($gap) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
+    gap: $gap;
 }
 
-@mixin flex-column() {
+@mixin flex-column($gap) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
+    gap: $gap;
 }
 
-@mixin total-number() {
+@mixin total-number {
     display: inline-block;
     width: 60px;
     height: 30px;
@@ -81,4 +81,46 @@
         font-size: 12px;
         line-height: 26px;
     }
+}
+
+@mixin shadow-box {
+    background: $white-color;
+    border: 1px solid $white-color;
+    box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.2);
+}
+
+@mixin filter-button {
+    width: 100%;
+    height: 85px;
+    padding: 25px 5px 25px 75px;
+    @include shadow-box;
+    background: #FFFFFF no-repeat 25px center;
+
+    @media screen and (max-width: $tablet) {
+        height: 54px;
+        padding: 0;
+        padding-left: 50px;
+        padding-right: 5px;
+        background-position-x: 14px;
+        background-size: 24px 24px;
+    }
+}
+
+@mixin filter-font {
+    text-align: left;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 32px;
+    color: $main-color;
+
+    @media screen and (max-width: $tablet) {
+        font-size: 14px;
+        line-height: 25px;
+    }
+}
+
+@mixin hide-overflow-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

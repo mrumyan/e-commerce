@@ -1,30 +1,29 @@
 @import "@styles/variables.scss";
+@import "@styles/mixins.scss";
 
 .multi-dropdown {
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
     position: relative;
+    min-width: 340px;
+
+    @media screen and (max-width: $tablet) {
+        width: 100%;
+        min-width: 0;
+    }
+
+    &:hover {
+        box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.5);
+        transition: box-shadow 0.3s ease-in-out;
+    }
 
     &__title {
         cursor: pointer;
-        position: relative;
-        width: 368px;
-        height: 86px;
-        padding-left: 94px;
-        border: none;
-        background: $white-color;
-        box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.2);
-        text-align: left;
-        font-size: 18px;
-        line-height: 32px;
-        color: $minor-color;
+        @include filter-button;
+        @include filter-font;
+        @include hide-overflow-text;
+        background-image: url(filter-icon.png);
 
-        &::before {
-            content: url(filter-icon.png);
-            position: absolute;
-            top: 26px;
-            left: 52px;
+        @media screen and (max-width: $tablet) {
+            padding-left: 50px;
         }
 
         &:focus {
@@ -39,26 +38,22 @@
     &__content {
         display: none;
         position: absolute;
+        width: 100%;
         top: 86px;
-        width: 368px;
-        list-style: none;
-        background: $white-color;
-        border: 1px solid $white-color;
-        box-shadow: 0px 4px 120px rgba(175, 173, 181, 0.15);
         z-index: 2;
+        @include shadow-box;
+
+        @media screen and (max-width: $tablet) {
+            top: 55px;
+        }
 
         li {
-            box-sizing: border-box;
             cursor: pointer;
-            height: 50px;
-            padding-top: 16px;
-            padding-left: 16px;
-            font-family: 'Eudoxus Sans';
-            font-style: normal;
-            font-weight: 400;
+            width: 100%;
+            padding: 16px;
             font-size: 14px;
             line-height: 18px;
-            color: $black-color;
+            @include hide-overflow-text;
 
             &:hover {
                 color: $highlight-color;
@@ -71,7 +66,7 @@
     }
 
     &__content.clicked {
-        display: flex;
-        flex-direction: column;
+        @include flex-column(0);
+        align-items: flex-start;
     }
 }

@@ -20,9 +20,9 @@
         top: 45%;
         width: 64px;
         height: 64px;
+        border: none;
         border-radius: 40px;
-        border-color: $black-color;
-        background: $black-color url(./arrow-right.svg) center center no-repeat;
+        background: $black-color;
         box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.2);
 
         @media screen and (max-width: $tablet) {
@@ -34,7 +34,10 @@
 
     &__prev {
         left: 4%;
-        transform: rotate(180deg);
+
+        img {
+            transform: rotate(180deg);
+        }
     }
 
     &__next {

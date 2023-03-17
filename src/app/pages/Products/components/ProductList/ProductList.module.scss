@@ -2,18 +2,20 @@
 @import "@styles/mixins.scss";
 
 .main__product-list {
-    @include flex-column;
+    @include flex-column(50px);
+
+    @media screen and (max-width: $tablet) {
+        @include flex-column(30px);
+    }
 }
 
 .product-list {
     &__total {
         align-self: flex-start;
-        @include flex-row;
-        gap: 10px;
+        @include flex-row(10px);
     }
 
     &__title {
-        margin: 50px 0;
         @include title-h2;
     }
 
@@ -21,14 +23,8 @@
         @include total-number;
     }
 
-    &__content-with-scroll {
-        @include flex-column;
-        height: 100%;
-        overflow: auto;
-    }
-
     &__scroll {
-        margin: 20px auto;
+        margin: 30px auto;
     }
 
     &__content {
@@ -46,6 +42,28 @@
 
         @media screen and (max-width: $mobile) {
             grid-template-columns: 1fr;
+        }
+    }
+
+    &__end-icon {
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        background: $minor-color;
+        border-radius: 50%;
+        margin: 50px auto 0;
+        position: relative;
+
+        &:hover {
+            background: $highlight-color;
+            opacity: 0.7;
+        }
+
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%) rotate(-90deg);
         }
     }
 }
