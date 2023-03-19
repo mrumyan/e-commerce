@@ -1,4 +1,3 @@
-import { useListProducts } from "@context/ListProductsContext";
 import { ProductTypeModel } from "@store/models/product";
 import { Link } from "react-router-dom";
 
@@ -8,7 +7,7 @@ type ProductCardProps = {
   product: ProductTypeModel;
 };
 
-export const ProductCard: React.FC<ProductCardProps> = ({product}) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { id, title, subtitle, images, categoryId, category, content, onClick } = product;
 
   return (
@@ -20,16 +19,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({product}) => {
           alt={title as string}
         />
         <figcaption className={styles.card__info}>
-          <p className={`${styles.card__item} ${styles.card__category}`}>
-            {category}
-          </p>
-          <p className={`${styles.card__item} ${styles.card__title}`}>{title}</p>
-          <p className={`${styles.card__item} ${styles.card__subtitle}`}>
-            {subtitle}
-          </p>
-          <p className={`${styles.card__item} ${styles.card__content}`}>
-            {content}
-          </p>
+          <p className={styles.card__category}>{category}</p>
+          <p className={styles.card__title}>{title}</p>
+          <p className={styles.card__subtitle}>{subtitle}</p>
+          <p className={styles.card__content}>{content}</p>
         </figcaption>
       </figure>
     </Link>

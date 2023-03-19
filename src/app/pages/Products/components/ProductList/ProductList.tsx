@@ -18,7 +18,7 @@ const ProductList = () => {
       <Loader
         loading={hasMore}
         size={LoaderSize.l}
-        className={styles["product-list__scroll"]}
+        className={styles["product-list__loader"]}
       />
     );
   }, []);
@@ -45,20 +45,23 @@ const ProductList = () => {
         <h2 className={styles["product-list__title"]}>Total Product</h2>
         <div className={styles["product-list__number"]}><span>{list.length}</span></div>
       </div>
-      <InfiniteScroll
-        dataLength={list.length}
-        next={getProducts}
-        hasMore={hasMore}
-        // next={() => setTimeout(getProducts, 1000)}
-        loader={getLoader()}
-        endMessage={getEndMessage()}
-      >
-        <div className={styles["product-list__content"]}>
-          {list.map((product) => (
-            <ProductCard product={product} />
-          ))}
-        </div>
-      </InfiniteScroll>
+      <div className={styles["product-list__scroll"]}>
+        <InfiniteScroll
+          dataLength={list.length}
+          next={getProducts}
+          hasMore={hasMore}
+          loader={getLoader()}
+          endMessage={list.length >= 6 && getEndMessage()}
+          style={{ overflow: "hidden" }}
+        >
+          <div className={styles["product-list__content"]}>
+            {list.map((product) => (
+              <ProductCard product={product} />
+            ))}
+          </div>
+        </InfiniteScroll>
+      </div>
+
     </div >
   );
 };

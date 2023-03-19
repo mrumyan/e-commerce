@@ -8,8 +8,6 @@ import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 
 import styles from "./RelatedItem.module.scss";
-import WithLinkCard from "@components/WithLinkCard";
-import { Link } from "react-router-dom";
 
 type RelatedItemsProps = {
   category?: string;

@@ -15,6 +15,10 @@
         @include flex-row(10px);
     }
 
+    &__scroll {
+        width: 100%;
+    }
+
     &__title {
         @include title-h2;
     }
@@ -23,25 +27,15 @@
         @include total-number;
     }
 
-    &__scroll {
+    &__loader {
         margin: 30px auto;
     }
 
     &__content {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 30px 29px;
-
-        @media screen and (min-width: $wide) {
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
-
-        @media screen and (max-width: $tablet) {
-            grid-template-columns: 1fr 1fr;
-        }
+        @include grid(290px, 30px);
 
         @media screen and (max-width: $mobile) {
-            grid-template-columns: 1fr;
+            @include grid(145px, 15px);
         }
     }
 
@@ -60,10 +54,9 @@
         }
 
         img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+            @include vertical-alignment;
+            top: 0;
+            rotate: -90deg;
         }
     }
 }

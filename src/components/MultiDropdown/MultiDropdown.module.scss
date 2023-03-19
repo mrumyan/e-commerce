@@ -20,7 +20,7 @@
         @include filter-button;
         @include filter-font;
         @include hide-overflow-text;
-        background-image: url(filter-icon.png);
+        background-image: url(filter-icon.svg);
 
         @media screen and (max-width: $tablet) {
             padding-left: 50px;

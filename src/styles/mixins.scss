@@ -63,6 +63,19 @@
     gap: $gap;
 }
 
+@mixin grid($min-width, $gap) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+    gap: $gap;
+}
+
+@mixin vertical-alignment {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
 @mixin total-number {
     display: inline-block;
     width: 60px;
@@ -121,6 +134,11 @@
 
 @mixin hide-overflow-text {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin hide-text_with_wrap {
     overflow: hidden;
     text-overflow: ellipsis;
 }

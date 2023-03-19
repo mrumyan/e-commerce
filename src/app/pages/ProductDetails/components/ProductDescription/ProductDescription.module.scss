@@ -4,6 +4,7 @@
 .product {
     &__info {
         @include flex-column(30px);
+        align-items: flex-start;
 
         p {
             text-align: left;
@@ -12,9 +13,7 @@
 
     &__item {
         font-weight: 700;
-        font-size: 44px;
-        line-height: 57px;
-        color: $main-color;
+        @include title-h2;
     }
 
     &__title {
@@ -29,9 +28,7 @@
 
     &__subtitle {
         font-weight: 500;
-        font-size: 18px;
-        line-height: 32px;
-        color: $minor-color;
+        @include subtitle;
 
         @media screen and (max-width: $tablet) {
             font-size: 14px;
