@@ -17,4 +17,4 @@ const CustomError: React.FC<CustomErrorProps> = ({ onClick }) => {
   );
 };
 
-export default CustomError;
+export default React.memo(CustomError);

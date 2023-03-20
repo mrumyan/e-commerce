@@ -1,4 +1,5 @@
 import cn from "classnames";
+import React from "react";
 
 import styles from "./Loader.module.scss";
 
@@ -14,7 +15,7 @@ type LoaderProps = {
   className?: string;
 };
 
-export const Loader: React.FC<LoaderProps> = ({
+const Loader: React.FC<LoaderProps> = ({
   loading = true,
   size = LoaderSize.m,
   className,
@@ -31,3 +32,5 @@ export const Loader: React.FC<LoaderProps> = ({
 
   return loading ? <div className={classNames}></div> : null;
 };
+
+export default React.memo(Loader);

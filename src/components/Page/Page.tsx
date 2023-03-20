@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import Header from "@components/Header";
 
 import styles from "./Page.module.scss";
+import React from "react";
 
 type PageProps = React.PropsWithChildren<{
   children?: ReactNode;
@@ -17,4 +18,4 @@ const Page: React.FC<PageProps> = ({ children }) => {
   );
 };
 
-export default Page;
+export default React.memo(Page);

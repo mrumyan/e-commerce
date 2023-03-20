@@ -1,18 +1,19 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 
 import cn from "classnames";
 
-import { Loader, LoaderSize } from "@components/Loader";
+import Loader, { LoaderSize } from "@components/Loader";
 import { CategoryTypeModel } from "@store/models/category";
 
 import styles from "./MultiDropdown.module.scss";
+import React from "react";
 
 type MultiDropdownProps = {
   options: CategoryTypeModel[];
   value?: CategoryTypeModel;
   onChange: (value?: CategoryTypeModel) => void;
   pluralizeOptions: (value: CategoryTypeModel) => string;
-  loading?: boolean;
+  loading: boolean;
   disabled?: boolean;
   internalText?: string;
   className?: string;
@@ -31,8 +32,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 }) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
-
-
   const onDropdownClick = useCallback(() => setClicked(!clicked), [clicked]);
   const isDropdownShown = useCallback(
     (): boolean => clicked && !disabled,
@@ -47,8 +46,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const handleClick = (
     event: React.MouseEvent,
     option: CategoryTypeModel
-  ): void =>
-    onChange(!isOptionAlreadySelected(option.value) ? option : undefined);
+  ): void => onChange(!isOptionAlreadySelected(option.value) ? option : undefined);
 
   const optionsList: ReactNode = options.map(
     ({ key: categoryKey, value: categoryValue }: CategoryTypeModel) => {
@@ -99,4 +97,4 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   );
 };
 
-export default MultiDropdown;
+export default React.memo(MultiDropdown);

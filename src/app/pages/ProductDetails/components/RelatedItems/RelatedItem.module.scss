@@ -1,4 +1,5 @@
 @import "@styles/variables.scss";
+@import "@styles/mixins.scss";
 
 .main__related-items {
     width: 100%;
@@ -15,6 +16,7 @@
         color: $main-color;
 
         @media screen and (max-width: $tablet) {
+            margin: 48px 0 23px;
             font-size: 18px;
             line-height: 23px;
             letter-spacing: 0;
@@ -22,13 +24,23 @@
     }
 
     &__content {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        // display: grid;
+        // grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        // overflow-y: hidden;
+        // gap: 30px;
+
+        // @media screen and (max-width: $tablet) {
+        //     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        // }
+        @include grid(340px, 30px);
         overflow-y: hidden;
-        gap: 30px;
 
         @media screen and (max-width: $tablet) {
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            @include grid(280px, 15px);
+        }
+
+        @media screen and (max-width: $mobile) {
+            @include grid(145px, 15px);
         }
     }
 }

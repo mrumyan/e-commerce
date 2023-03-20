@@ -1,4 +1,5 @@
 import cn from "classnames";
+import React from "react";
 
 import styles from "./Input.module.scss";
 
@@ -39,4 +40,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default React.memo(Input);

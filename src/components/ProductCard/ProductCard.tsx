@@ -1,4 +1,5 @@
 import { ProductTypeModel } from "@store/models/product";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./ProductCard.module.scss";
@@ -7,7 +8,7 @@ type ProductCardProps = {
   product: ProductTypeModel;
 };
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { id, title, subtitle, images, categoryId, category, content, onClick } = product;
 
   return (
@@ -28,3 +29,5 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     </Link>
   );
 };
+
+export default React.memo(ProductCard);

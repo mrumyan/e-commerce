@@ -1,5 +1,5 @@
-import { Loader, LoaderSize } from "@components/Loader";
-import { ProductCard } from "@components/ProductCard";
+import Loader, { LoaderSize } from "@components/Loader";
+import ProductCard from "@components/ProductCard";
 import { useListProducts } from "@context/ListProductsContext";
 
 import { observer } from "mobx-react-lite";

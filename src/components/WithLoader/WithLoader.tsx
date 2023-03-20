@@ -1,5 +1,6 @@
 import styles from "./WithLoader.module.scss";
-import { Loader, LoaderSize } from "../Loader/Loader";
+import Loader, { LoaderSize } from "../Loader/Loader";
+import React from "react";
 
 type WithLoaderProps = React.PropsWithChildren<{
   loading: boolean;
@@ -23,4 +24,4 @@ const WithLoader: React.FC<WithLoaderProps> = ({
   );
 };
 
-export default WithLoader;
+export default React.memo(WithLoader);

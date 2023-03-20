@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 import StoreLogo from "./icon.svg";
+import React from "react";
 
 const Header = () => {
   const [isBurgerMenuVisible, setIsBurgerMenuVisible] =
@@ -63,4 +64,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

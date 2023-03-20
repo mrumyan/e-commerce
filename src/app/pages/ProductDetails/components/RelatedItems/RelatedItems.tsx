@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 import CustomError from "@components/Error";
-import { ProductCard } from "@components/ProductCard";
+import ProductCard from "@components/ProductCard";
 import CategoryStore from "@store/CategoryStore";
 import { Meta } from "@utils/meta";
 import { useLocalStore } from "@utils/useLocalStore";

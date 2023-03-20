@@ -1,6 +1,7 @@
 import WithLoader from "@components/WithLoader";
 
 import cn from "classnames";
+import React from "react";
 
 import styles from "./Button.module.scss";
 
@@ -40,4 +41,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default React.memo(Button);
