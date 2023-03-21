@@ -18,9 +18,9 @@ type ProductInfoProps = {
 const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
   const productStore = useLocalStore(() => new ProductStore());
 
-  const getProduct = useCallback(() => productStore.getProduct(id), []);
+  const getProduct = useCallback(() => productStore.getProduct(id), [id]);
 
-  useEffect(getProduct, []);
+  useEffect(getProduct, [id]);
 
   if (productStore.meta === Meta.error) {
     return <CustomError onClick={getProduct} />;
