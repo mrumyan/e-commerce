@@ -7,6 +7,7 @@
     @include hide-overflow-text;
     background-image: url(./search-icon.svg);
     color: $minor-color;
+    transition: box-shadow 0.3s ease-in-out;
 
     &:hover {
         box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.5);

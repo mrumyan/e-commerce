@@ -45,7 +45,9 @@ class ProductStore implements IProductStore, ILocalStore {
   }
 
   getProduct(productId?: string): void {
+    this._meta = Meta.loading;
     this._product = null;
+
     const requestUrl: string = getProductUrl(productId);
 
     axios

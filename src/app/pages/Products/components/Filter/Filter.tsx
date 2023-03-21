@@ -5,13 +5,13 @@ import { useListProducts } from "@context/ListProductsContext";
 import { Meta } from "@utils/meta";
 
 import { observer } from "mobx-react-lite";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Filter.module.scss";
 
 const Filter = () => {
-  const { allCategories } = useMemo(useCategory, []);
+  const { allCategories } = useCategory();
   const { selectedCategory, query, setQuery, setSelectedCategory, meta } = useListProducts();
 
   let navigate = useNavigate();

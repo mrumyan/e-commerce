@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Products />} />
-      <Route path="/product/:category/:id" element={<ProductDetails />} />
+      <Route path="/product/category/:category/product-id/:id" element={<ProductDetails />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

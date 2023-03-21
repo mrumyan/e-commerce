@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { id, title, subtitle, images, categoryId, category, content, onClick } = product;
 
   return (
-    <Link key={id} to={`/product/${categoryId}/${id}`}>
+    <Link to={`/product/category/${categoryId}/product-id/${id}`}>
       <figure className={styles.card} onClick={onClick}>
         <img
           className={styles.card__image}

@@ -7,15 +7,10 @@ import styles from "./ProductSlider.module.scss";
 
 const ProductSlider: React.FC = () => {
   const { product } = useProduct();
-  if (!product) {
-    return null;
-  }
 
-  const { title, images } = product;
   const [currentImageNumber, setCurrentImageNumber] = useState(0);
 
-  let imagesNumber = useRef(3);
-  imagesNumber.current = images.length;
+  const imagesNumber = useRef(3);
 
   const showPrevImage = useCallback(() => {
     setCurrentImageNumber((prev) => prev - 1);
@@ -24,6 +19,13 @@ const ProductSlider: React.FC = () => {
   const showNextImage = useCallback(() => {
     setCurrentImageNumber((prev) => prev + 1);
   }, []);
+
+  if (!product) {
+    return null;
+  }
+
+  const { title, images } = product;
+  imagesNumber.current = images.length;
 
   return (
     <div className={styles.product__slider}>

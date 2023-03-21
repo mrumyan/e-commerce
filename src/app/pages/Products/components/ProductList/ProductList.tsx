@@ -13,6 +13,12 @@ import { useCallback } from "react";
 const ProductList = () => {
   const { list, hasMore, getProducts } = useListProducts();
 
+  const getMoreProducts = useCallback(() => {
+    if (list.length) {
+      getProducts();
+    }
+  }, [list]);
+
   const getLoader = useCallback(() => {
     return (
       <Loader
@@ -48,7 +54,7 @@ const ProductList = () => {
       <div className={styles["product-list__scroll"]}>
         <InfiniteScroll
           dataLength={list.length}
-          next={getProducts}
+          next={getMoreProducts}
           hasMore={hasMore}
           loader={getLoader()}
           endMessage={list.length >= 6 && getEndMessage()}
@@ -56,7 +62,7 @@ const ProductList = () => {
         >
           <div className={styles["product-list__content"]}>
             {list.map((product) => (
-              <ProductCard product={product} />
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </InfiniteScroll>

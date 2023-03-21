@@ -33,7 +33,7 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({ category }) => {
         <p className={styles["related-items__title"]}>Related Items</p>
         <div className={styles["related-items__content"]}>
           {products.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
