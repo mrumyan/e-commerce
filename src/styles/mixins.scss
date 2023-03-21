@@ -66,8 +66,18 @@
 @mixin grid($min-width, $gap) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+    grid-auto-rows: auto;
     gap: $gap;
 }
+
+@mixin one-line-grid($min-width, $gap) {
+    @include grid($min-width, $gap);
+    grid-template-rows: 1fr;
+    grid-auto-rows: 0;
+    row-gap: 0;
+    overflow-y: hidden;
+}
+
 
 @mixin vertical-alignment {
     position: absolute;

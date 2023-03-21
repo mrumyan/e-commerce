@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 
 import cn from "classnames";
 
@@ -44,9 +44,18 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   );
 
   const handleClick = (
-    event: React.MouseEvent,
     option: CategoryTypeModel
   ): void => onChange(!isOptionAlreadySelected(option.value) ? option : undefined);
+
+  useEffect(() => {
+    const handlePageClick = (event: Event) => {
+      const target = event.target as HTMLElement;
+      !target.closest(`.${dropdownClassNames}`) && setClicked(false);
+    };
+
+    document.addEventListener("click", handlePageClick);
+    return () => document.removeEventListener("click", handlePageClick);
+  }, []);
 
   const optionsList: ReactNode = options.map(
     ({ key: categoryKey, value: categoryValue }: CategoryTypeModel) => {
@@ -57,7 +66,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
             isOptionAlreadySelected(categoryValue) ? styles["selected"] : ""
           }
           onClick={(event) =>
-            handleClick(event, { key: categoryKey, value: categoryValue })
+            handleClick({ key: categoryKey, value: categoryValue })
           }
           {...props}
         >

@@ -18,13 +18,17 @@ const ProductDescription: React.FC = () => {
 
   return (
     <div className={styles.product__info}>
-      <p className={titleClassNames}>{title}</p>
-      <p className={subtitleClassNames}>{subtitle}</p>
-      <p className={contentClassNames}>{content}</p>
-      <div className={styles.product__buttons}>
-        <Button className={styles.product__buy}>Buy Now</Button>
-        <Button className={styles.product__cart}>Add to Cart</Button>
+      <div className={styles["product__info-block"]}>
+        <p className={titleClassNames}>{title}</p>
+        <p className={subtitleClassNames}>{subtitle}</p>
       </div>
+      <div className={styles["product__info-block"]}>
+        <p className={contentClassNames}>{content}</p>
+        <div className={styles.product__buttons}>
+          <Button className={styles.product__buy}>Buy Now</Button>
+          <Button className={styles.product__cart}>Add to Cart</Button>
+        </div></div>
+
     </div>
   );
 };

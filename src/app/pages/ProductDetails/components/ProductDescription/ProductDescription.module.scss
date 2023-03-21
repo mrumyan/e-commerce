@@ -3,21 +3,21 @@
 
 .product {
     &__info {
-        @include flex-column(30px);
+        @include flex-column(10px);
         align-items: flex-start;
 
-        p {
-            text-align: left;
+        @media screen and (max-width: $tablet) {
+            gap: 30px;
         }
+    }
+
+    &__info-block {
+        width: 100%;
     }
 
     &__item {
         font-weight: 700;
         @include title-h2;
-    }
-
-    &__title {
-        margin-bottom: 20px;
 
         @media screen and (max-width: $tablet) {
             font-size: 24px;
@@ -26,6 +26,7 @@
     }
 
     &__subtitle {
+        margin-top: 20px;
         font-weight: 500;
         @include subtitle;
 
@@ -36,23 +37,19 @@
     }
 
     &__content {
-        margin: 128px 0 50px;
+        margin-bottom: 50px;
 
         @media screen and (max-width: $tablet) {
-            margin: 30px 0 30px;
-            font-size: 24px;
-            line-height: 31px;
+            margin-bottom: 30px;
         }
     }
 
     &__buttons {
-        display: flex;
-        column-gap: 20px;
+        @include flex-row(20px);
         width: 100%;
 
         @media screen and (max-width: $desktop) {
-            flex-direction: column;
-            gap: 12px 0;
+            @include flex-column(12px);
         }
     }
 

@@ -24,23 +24,14 @@
     }
 
     &__content {
-        // display: grid;
-        // grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-        // overflow-y: hidden;
-        // gap: 30px;
-
-        // @media screen and (max-width: $tablet) {
-        //     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        // }
-        @include grid(340px, 30px);
-        overflow-y: hidden;
+        @include one-line-grid(340px, 30px);
 
         @media screen and (max-width: $tablet) {
             @include grid(280px, 15px);
         }
 
         @media screen and (max-width: $mobile) {
-            @include grid(145px, 15px);
+            @include grid(140px, 15px);
         }
     }
 }
