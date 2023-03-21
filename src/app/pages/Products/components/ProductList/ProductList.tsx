@@ -1,6 +1,6 @@
 import Loader, { LoaderSize } from "@components/Loader";
 import ProductCard from "@components/ProductCard";
-import { useListProducts } from "@context/ListProductsContext";
+import { useProductList } from "@context/ProductListContext";
 
 import { observer } from "mobx-react-lite";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -11,7 +11,7 @@ import styles from "./ProductList.module.scss";
 import { useCallback } from "react";
 
 const ProductList = () => {
-  const { list, hasMore, getProducts } = useListProducts();
+  const { list, hasMore, getProducts } = useProductList();
 
   const getMoreProducts = useCallback(() => {
     if (list.length) {

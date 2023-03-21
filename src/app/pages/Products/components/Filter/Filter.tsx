@@ -1,7 +1,7 @@
 import Input from "@components/Input";
 import MultiDropdown from "@components/MultiDropdown";
 import { useCategory } from "@context/CategoryContext";
-import { useListProducts } from "@context/ListProductsContext";
+import { useProductList } from "@context/ProductListContext";
 import { Meta } from "@utils/meta";
 
 import { observer } from "mobx-react-lite";
@@ -12,7 +12,7 @@ import styles from "./Filter.module.scss";
 
 const Filter = () => {
   const { allCategories } = useCategory();
-  const { selectedCategory, query, setQuery, setSelectedCategory, meta } = useListProducts();
+  const { selectedCategory, query, setQuery, setSelectedCategory, meta } = useProductList();
 
   let navigate = useNavigate();
 

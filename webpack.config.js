@@ -1,8 +1,9 @@
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TsCheckerPlugin = require('fork-ts-checker-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 const buildPath = path.resolve(__dirname, "dist");
 const srcPath = path.resolve(__dirname, "src");
@@ -40,13 +41,16 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            template: path.join(srcPath, "index.html")
+            template: path.join(srcPath, "index.html"),
         }),
         !isProd && new ReactRefreshWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: "[name]-[hash].css"
         }),
-        new TsCheckerPlugin()
+        new TsCheckerPlugin(),
+        new FaviconsWebpackPlugin({
+            logo: path.join(srcPath, "assets/favicon.ico")
+        })
     ].filter(Boolean),
     module: {
         rules: [

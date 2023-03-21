@@ -26,10 +26,9 @@ import {
   runInAction,
   IReactionDisposer,
   reaction,
-  makeAutoObservable,
 } from "mobx";
 
-export interface IListProductsStore {
+export interface IProductListStore {
   setQuery: (query: string) => void;
   setSelectedCategory: (category?: CategoryTypeModel) => void;
   getProducts: (hasNewQuery: boolean, categoryId?: number) => void;
@@ -42,7 +41,7 @@ type PrivateFields =
   | "_hasMore"
   | "_meta";
 
-class ListProductsStore implements IListProductsStore, ILocalStore {
+class ProductListStore implements IProductListStore, ILocalStore {
   private _list: CollectionModel<number, ProductTypeModel> = getInitialCollectionModel();
   private _selectedCategory?: CategoryTypeModel | undefined = undefined;
   private _query?: QueryParamsType = rootStore.queryParamsStore.getParam("title") ?? "";
@@ -50,7 +49,7 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
   private _meta: Meta = Meta.initial;
 
   constructor() {
-    makeObservable<ListProductsStore, PrivateFields>(this, {
+    makeObservable<ProductListStore, PrivateFields>(this, {
       _list: observable.ref,
       _selectedCategory: observable.ref,
       _query: observable.ref,
@@ -152,4 +151,4 @@ class ListProductsStore implements IListProductsStore, ILocalStore {
   }
 }
 
-export default ListProductsStore;
+export default ProductListStore;
