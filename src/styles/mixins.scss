@@ -159,3 +159,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@mixin disabled-option {
+    cursor: auto;
+    pointer-events: none;
+    opacity: 0.4;
+}
