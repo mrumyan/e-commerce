@@ -8,7 +8,7 @@ import {
   getInitialCollectionModel,
   linearizeCollection,
   normalizeCollection,
-} from "@store/models/collection";
+} from "@store/models/shared/collection";
 import {
   normalizeProductType,
   ProductTypeApi,

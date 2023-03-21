@@ -1,4 +1,4 @@
-import { CategoryTypeModel } from "@store/models/category";
+import { CategoryTypeModel, getCategoryTypeModel } from "@store/models/category";
 import {
   CollectionModel,
   getInitialCollectionModel,
@@ -6,7 +6,7 @@ import {
   joinCollections,
   linearizeCollection,
   normalizeCollection,
-} from "@store/models/collection";
+} from "@store/models/shared/collection";
 import {
   normalizeProductType,
   ProductTypeApi,
@@ -43,7 +43,7 @@ type PrivateFields =
 
 class ProductListStore implements IProductListStore, ILocalStore {
   private _list: CollectionModel<number, ProductTypeModel> = getInitialCollectionModel();
-  private _selectedCategory?: CategoryTypeModel | undefined = undefined;
+  private _selectedCategory?: CategoryTypeModel | undefined = getCategoryTypeModel(rootStore.queryParamsStore.getParam("category"));
   private _query?: QueryParamsType = rootStore.queryParamsStore.getParam("title") ?? "";
   private _hasMore: boolean = true;
   private _meta: Meta = Meta.initial;
@@ -66,16 +66,16 @@ class ProductListStore implements IProductListStore, ILocalStore {
 
   private readonly _qpReaction: IReactionDisposer = reaction(
     () => rootStore.queryParamsStore.getParam("title"),
-    (search) => {
-      this._query = search ?? "";
+    (title) => {
+      this._query = title ?? "";
       this.getProducts(true);
     }
   );
 
   private readonly _categoryReaction: IReactionDisposer = reaction(
-    () => this._selectedCategory,
-    (selectedCategory) => {
-      this._selectedCategory = selectedCategory;
+    () => rootStore.queryParamsStore.getParam("category"),
+    (category) => {
+      this._selectedCategory = getCategoryTypeModel(category);
       this.getProducts(true);
     }
   );

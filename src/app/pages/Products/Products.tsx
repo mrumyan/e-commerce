@@ -12,8 +12,8 @@ import { useLocalStore } from "@utils/useLocalStore";
 
 import styles from "./Products.module.scss";
 
-import Filter from "../Filter";
-import ProductList from "../ProductList";
+import Filter from "./components/Filter";
+import ProductList from "./components/ProductList";
 
 const Products = () => {
   const productListStore = useLocalStore(() => new ProductListStore());

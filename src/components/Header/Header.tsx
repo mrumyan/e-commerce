@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import cn from "classnames";
 import { Link } from "react-router-dom";
@@ -11,7 +11,9 @@ const Header = () => {
   const [isBurgerMenuVisible, setIsBurgerMenuVisible] =
     useState<boolean>(false);
 
-  const handleBurgerMenu = () => setIsBurgerMenuVisible(!isBurgerMenuVisible);
+  const handleBurgerMenu = useCallback(() => {
+    setIsBurgerMenuVisible(!isBurgerMenuVisible);
+  }, [isBurgerMenuVisible]);
 
   const navigationClasses = cn(styles.header__navigation, {
     [styles.active]: isBurgerMenuVisible,

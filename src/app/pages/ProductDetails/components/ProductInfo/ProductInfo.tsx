@@ -10,6 +10,7 @@ import ProductDescription from "../ProductDescription";
 import ProductSlider from "../ProductSlider";
 import { Meta } from "@utils/meta";
 import { ProductContext } from "@context/ProductContext";
+import Loader, { LoaderSize } from "@components/Loader";
 
 type ProductInfoProps = {
   id?: string;
@@ -24,6 +25,8 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ id }) => {
 
   if (productStore.meta === Meta.error) {
     return <CustomError onClick={getProduct} />;
+  } if (productStore.meta === Meta.loading) {
+    return <Loader className={styles.main__loader} loading={productStore.meta === Meta.loading} size={LoaderSize.l} />;
   } else {
     return (
       <ProductContext.Provider value={productStore}>

@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import ProductDetails from "@pages/ProductDetails/components/ProductDetails";
-import Products from "@pages/Products/components/Products";
+import ProductDetails from "@pages/ProductDetails";
+import Products from "@pages/Products";
 import { useQueryParamsStoreInit } from "@store/RootStore/hooks/useQueryParamsStoreInit";
 
 const App = () => {
