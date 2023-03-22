@@ -25,8 +25,8 @@ const ProductDescription: React.FC = () => {
       <div className={styles["product__info-block"]}>
         <p className={contentClassNames}>{content}</p>
         <div className={styles.product__buttons}>
-          <Button className={styles.product__buy}>Buy Now</Button>
-          <Button className={styles.product__cart}>Add to Cart</Button>
+          <Button className={styles.product__buy} disabled>Buy Now</Button>
+          <Button className={styles.product__cart} disabled>Add to Cart</Button>
         </div></div>
 
     </div>

@@ -13,10 +13,6 @@
         padding: 20px 0;
     }
 
-    &__logo {
-        cursor: pointer;
-    }
-
     &__navigation {
         @media screen and (max-width: $tablet) {
             width: 100vw;

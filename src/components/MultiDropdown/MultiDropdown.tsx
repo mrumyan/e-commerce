@@ -45,7 +45,10 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   const handleClick = (
     option: CategoryTypeModel
-  ): void => onChange(!isOptionAlreadySelected(option.value) ? option : undefined);
+  ): void => {
+    onChange(!isOptionAlreadySelected(option.value) ? option : undefined);
+    onDropdownClick();
+  };
 
   useEffect(() => {
     const handlePageClick = (event: Event) => {

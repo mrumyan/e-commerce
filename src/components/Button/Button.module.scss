@@ -1,4 +1,5 @@
 @import "@styles/variables.scss";
+@import "@styles/mixins.scss";
 
 .button {
     cursor: pointer;
@@ -21,6 +22,10 @@
     &_disabled,
     &_loading {
         background: $btn-disabled-color;
+    }
+
+    &_disabled {
+        @include disabled-option;
     }
 
     &_loading {
