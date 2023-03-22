@@ -1,7 +1,7 @@
 import "./configs/configureMobX.ts";
 
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import "./styles/styles.scss";
 
@@ -12,9 +12,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <BrowserRouter>
+  <HashRouter>
     <App />
-  </BrowserRouter>
+  </HashRouter>
 );
 
 if(module.hot) {

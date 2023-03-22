@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
-const buildPath = path.resolve(__dirname, "dist");
+const buildPath = path.resolve(__dirname, "build");
 const srcPath = path.resolve(__dirname, "src");
 
 const isProd = process.env.NODE_ENV === "production";
@@ -48,9 +48,7 @@ module.exports = {
             filename: "[name]-[hash].css"
         }),
         new TsCheckerPlugin(),
-        new FaviconsWebpackPlugin({
-            logo: path.join(srcPath, "assets/favicon.ico")
-        })
+        // new FaviconsWebpackPlugin("./src/assets/favicon.ico")
     ].filter(Boolean),
     module: {
         rules: [
