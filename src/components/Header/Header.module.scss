@@ -1,0 +1,191 @@
+@import "@styles/variables.scss";
+@import "@styles/mixins.scss";
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 44px 0;
+    border-bottom: 2px solid $border-color;
+    position: relative;
+
+    @media screen and (max-width: $tablet) {
+        padding: 20px 0;
+    }
+
+    &__navigation {
+        @media screen and (max-width: $tablet) {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 55px;
+            background: $white-color;
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+
+            &.active {
+                z-index: 2;
+                transform: translateX(0);
+            }
+        }
+    }
+
+    &__menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 60px;
+
+        @media screen and (max-width: $tablet) {
+            flex-direction: column;
+            gap: 60px 0;
+        }
+
+        li:not(:first-child) {
+            @include disabled-option;
+        }
+    }
+
+    &__menu-item {
+        cursor: pointer;
+        position: relative;
+        text-decoration: none;
+        font-weight: 500;
+        @include subtitle;
+        color: $main-color;
+
+        &:hover {
+            color: $highlight-color;
+
+            &::after {
+                content: "";
+                width: 100%;
+                height: 0px;
+                position: absolute;
+                top: 77px;
+                left: 0px;
+                border-bottom: 3px solid $highlight-color;
+            }
+        }
+
+        @media screen and (max-width: $tablet) {
+            &:hover::after {
+                top: 40px;
+            }
+        }
+    }
+
+    &__personal {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 24px;
+
+        @media screen and (max-width: $tablet) {
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+
+            &.active {
+                z-index: 1;
+                transform: translateX(0);
+            }
+        }
+    }
+
+    &__personal-item {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+
+        &__cart,
+        &__user {
+            width: 100%;
+            height: 100%;
+        }
+
+        &__cart {
+            background: $white-color url(./cart.svg) center center no-repeat;
+        }
+
+        &__user {
+            background: $white-color url(./user.svg) center center no-repeat;
+        }
+
+        &:hover {
+            transform: scale(1.1, 1.1);
+        }
+
+        @include disabled-option;
+    }
+
+    &__burger-menu {
+        cursor: pointer;
+        width: 22.5px;
+        height: 16px;
+        display: none;
+
+        @media screen and (max-width: $tablet) {
+            display: initial;
+            z-index: 2;
+
+            &.active {
+                .header__burger-line {
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, 0%) rotate(45deg);
+                    transition: transform 0.5s ease-out;
+
+                    &::after {
+                        top: 0%;
+                        left: 50%;
+                        transform: translate(-50%, 0%) rotate(-90deg);
+                        transition: transform 0.5s ease-out;
+                    }
+
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &__burger-line {
+        display: block;
+        position: relative;
+        width: 22.5px;
+        height: 2px;
+        border-radius: 10px;
+        background-color: $main-color;
+
+        &::before,
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            border-radius: 2px;
+            background-color: $main-color;
+        }
+
+        &::before {
+            top: 6px;
+        }
+
+        &::after {
+            top: 12px;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+@import "@styles/variables.scss";
+
+.main {
+    &__product {
+        display: grid;
+        grid-template-columns: 600px 1fr;
+        grid-template-rows: 1fr;
+        gap: 50px;
+
+        @media screen and (max-width: $desktop) {
+            grid-template-columns: 500px 1fr;
+            gap: 30px;
+        }
+
+        @media screen and (max-width: $tablet) {
+            grid-template-columns: 1fr;
+        }
+
+        @media screen and (max-width: $mobile) {
+            grid-template-rows: 327px 1fr;
+        }
+    }
+
+    &__loader {
+        margin: 0 auto;
+    }
+}

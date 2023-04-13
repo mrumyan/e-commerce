@@ -1,0 +1,64 @@
+@import "@styles/variables.scss";
+@import "@styles/mixins.scss";
+
+.product {
+    &__info {
+        @include flex-column(10px);
+        align-items: flex-start;
+
+        @media screen and (max-width: $tablet) {
+            gap: 30px;
+        }
+    }
+
+    &__info-block {
+        width: 100%;
+    }
+
+    &__item {
+        font-weight: 700;
+        @include title-h2;
+        @include hide-text_with_wrap;
+
+        @media screen and (max-width: $tablet) {
+            font-size: 24px;
+            line-height: 31px;
+        }
+    }
+
+    &__subtitle {
+        margin-top: 20px;
+        font-weight: 500;
+        @include subtitle;
+        @include hide-text_with_wrap;
+
+        @media screen and (max-width: $tablet) {
+            font-size: 14px;
+            line-height: 25px;
+        }
+    }
+
+    &__content {
+        margin-bottom: 50px;
+        @include hide-overflow-text;
+
+        @media screen and (max-width: $tablet) {
+            margin-bottom: 30px;
+        }
+    }
+
+    &__buttons {
+        @include flex-row(20px);
+        @include hide-overflow-text;
+
+        @media screen and (max-width: $desktop) {
+            @include flex-column(12px);
+        }
+    }
+
+    &__cart {
+        background: $white-color;
+        border: 1px solid $border-color;
+        color: $main-color;
+    }
+}

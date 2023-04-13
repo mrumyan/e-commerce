@@ -1,0 +1,37 @@
+@import "@styles/variables.scss";
+@import "@styles/mixins.scss";
+
+.main__related-items {
+    width: 100%;
+}
+
+.related-items {
+    &__title {
+        margin: 50px 0 30px;
+        text-align: left;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 42px;
+        letter-spacing: 0.01em;
+        color: $main-color;
+
+        @media screen and (max-width: $tablet) {
+            margin: 48px 0 23px;
+            font-size: 18px;
+            line-height: 23px;
+            letter-spacing: 0;
+        }
+    }
+
+    &__content {
+        @include one-line-grid(340px, 30px);
+
+        @media screen and (max-width: $tablet) {
+            @include grid(280px, 15px);
+        }
+
+        @media screen and (max-width: $mobile) {
+            @include grid(140px, 15px);
+        }
+    }
+}

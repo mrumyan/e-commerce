@@ -1,0 +1,18 @@
+@import "@styles/variables.scss";
+@import "@styles/mixins.scss";
+
+.main {
+    &__title {
+        margin-bottom: 20px;
+        text-align: center;
+        @include title-h1;
+    }
+
+    &__subtitle {
+        margin: 0 auto;
+        max-width: 600px;
+        @include subtitle;
+        text-align: center;
+        font-weight: 500;
+    }
+}

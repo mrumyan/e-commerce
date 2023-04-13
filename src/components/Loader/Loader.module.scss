@@ -1,0 +1,46 @@
+@import "@styles/variables.scss";
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin-right: 18px;
+    border-radius: 50px;
+    transform: rotate(-5.74deg);
+    animation: spin 2s linear 0s infinite;
+
+    &_large {
+        width: 60px;
+        height: 60px;
+        border: 6px solid $highlight-color;
+        border-bottom: 6px solid transparent;
+    }
+
+    &_medium {
+        width: 40px;
+        height: 40px;
+        border: 4.5px solid $highlight-color;
+        border-bottom: 4.5px solid transparent;
+    }
+
+    &_small {
+        width: 20px;
+        height: 20px;
+        border: 3px solid $highlight-color;
+        border-bottom: 3px solid transparent;
+    }
+}
+
+.white {
+    border-color: $white-color;
+    border-bottom-color: transparent;
+}

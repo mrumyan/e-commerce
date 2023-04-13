@@ -1,0 +1,95 @@
+{
+  "name": "e-commerce",
+  "version": "0.5.0",
+  "main": "index.tsx",
+  "lisense": "MIT",
+  "private": true,
+  "homepage": "https://mrumyan.github.io/e-commerce",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development npx webpack serve --mode=development",
+    "build": "cross-env NODE_ENV=production npx webpack --mode=production",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
+    "ts-check": "tsc --skipLibCheck --noEmit --project tsconfig.json",
+    "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx,css,scss}\"",
+    "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx,css,scss}\" --fix"
+  },
+  "dependencies": {
+    "@types/node": "^18.14.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "axios": "^1.3.3",
+    "classnames": "^2.3.2",
+    "mobx": "^6.8.0",
+    "mobx-react-lite": "^3.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-router-dom": "6",
+    "react-scripts": "5.0.1",
+    "regenerator-runtime": "^0.13.11",
+    "typescript": "^4.9.5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@types/webpack-env": "^1.18.0",
+    "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.2",
+    "babel-preset-mobx": "^2.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.3",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "favicons": "^7.1.1",
+    "favicons-webpack-plugin": "^6.0.0",
+    "fork-ts-checker-webpack-plugin": "^8.0.0",
+    "gh-pages": "^5.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.3",
+    "postcss-loader": "^7.0.2",
+    "prettier": "^2.8.4",
+    "react-app-rewire-alias": "^1.1.7",
+    "react-app-rewired": "^2.2.1",
+    "react-refresh": "^0.14.0",
+    "sass": "^1.59.2",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "react-app",
+        {
+          "runtime": "automatic"
+        }
+      ]
+    ]
+  }
+}
